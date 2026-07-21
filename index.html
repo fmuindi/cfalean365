@@ -38,8 +38,8 @@
     --shadow-sm:0 2px 10px rgba(20,25,30,.07);
     --shadow-md:0 16px 38px rgba(20,25,30,.12);
     --shadow-lg:0 30px 70px rgba(20,25,30,.18);
-    --font-head:"Aptos Display","Aptos","Poppins","Segoe UI",system-ui,sans-serif;
-    --font-body:"Calibri","Carlito","Lato","Segoe UI",system-ui,sans-serif;
+    --font-head:"Apercu Pro","Apercu","Aptos Display",Poppins,"Segoe UI",system-ui,sans-serif;
+    --font-body:"Apercu Pro","Apercu",Calibri,Carlito,Lato,"Segoe UI",system-ui,sans-serif;
     --maxw:1180px; --ease:cubic-bezier(.22,.61,.36,1);
     --dots:radial-gradient(currentColor 1.6px, transparent 1.7px);
   }
@@ -49,6 +49,24 @@
   body.cfa-page{ margin:0; font-family:var(--font-body); color:var(--ink); background:var(--cream);
     font-size:clamp(16px,1.05vw,18px); line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   .cfa-page h1,.cfa-page h2,.cfa-page h3,.cfa-page h4{ font-family:var(--font-head); font-weight:800; line-height:1.07; letter-spacing:-.02em; color:var(--ink); margin:0 0 .4em; }
+
+  /* ---- THEME-PROOFING: keep our type/spacing inside .cfa-page no matter the host theme ---- */
+  .cfa-page{ font-family:var(--font-body) !important; }
+  .cfa-page h1,.cfa-page h2,.cfa-page h3,.cfa-page h4,
+  .cfa-page .btn,.cfa-page .eyebrow,.cfa-page .cfa-logo .fallback,
+  .cfa-page .cfa-navlinks a,.cfa-page .cfa-login,.cfa-page .cfa-mobile a,
+  .cfa-page .kpi,.cfa-page .stat .n,.cfa-page .statc .n,.cfa-page .tl-weeks,
+  .cfa-page .tl-node,.cfa-page .kick,.cfa-page .rcard .top .badge,
+  .cfa-page .ppath .num,.cfa-page .ppath h4,.cfa-page .incl-list .t,
+  .cfa-page .foot-logo-chip .fallback,.cfa-page .cfa-footer h4,
+  .cfa-page .form-card h3,.cfa-page .field label,.cfa-page .hero-art .chip .t,
+  .cfa-page .donut-center .dn,.cfa-page .donut-legend b,.cfa-page .why-list b,
+  .cfa-page .pill-badge{ font-family:var(--font-head) !important; }
+  .cfa-page h1,.cfa-page h2,.cfa-page h3,.cfa-page h4{ font-weight:800 !important; line-height:1.08 !important; }
+  .cfa-page .hero h1{ font-weight:800 !important; }
+  .cfa-page p,.cfa-page li,.cfa-page a,.cfa-page label,.cfa-page input,.cfa-page select,.cfa-page textarea{ letter-spacing:normal; }
+  .cfa-page ul{ margin:0; padding:0; }
+  .cfa-page button{ font-family:var(--font-head) !important; }
   .cfa-page p{ margin:0 0 1rem; color:var(--ink-soft); }
   .cfa-page a{ color:inherit; text-decoration:none; }
   .cfa-page img{ max-width:100%; display:block; }
@@ -108,7 +126,7 @@
   .hero-badges{ display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.3rem; }
   .pill-badge{ display:inline-flex; align-items:center; gap:.5rem; background:#fff; border:1px solid var(--line); padding:.42rem .9rem; border-radius:var(--r-pill); font-size:.79rem; font-weight:600; color:var(--ink-soft); box-shadow:var(--shadow-sm); }
   .pill-badge .dot{ width:9px; height:9px; border-radius:50%; background:var(--red); }
-  .hero h1{ font-size:clamp(2.35rem,5.4vw,4.2rem); font-weight:900; }
+  .hero h1{ font-size:clamp(1.85rem,4.2vw,3.25rem); font-weight:800; }
   .hero h1 .hl{ color:var(--red); position:relative; }
   .hero h1 .hl::after{ content:""; position:absolute; left:0; right:0; bottom:.04em; height:.12em; background:var(--gold); border-radius:2px; opacity:.85; }
   .hero .lead{ margin-block:1.2rem 2rem; }
@@ -127,13 +145,34 @@
   .hero-art .chip .t{ font-family:var(--font-head); font-weight:800; font-size:1.1rem; line-height:1; }
   .hero-art .chip .s{ font-size:.73rem; color:var(--muted); }
 
-  /* ====================== MARQUEE ====================== */
-  .marquee{ background:var(--red); color:#fff; overflow:hidden; }
-  .marquee .track{ display:flex; align-items:center; gap:2.2rem; white-space:nowrap; width:max-content; animation:marq 32s linear infinite; padding:.85rem 0; }
-  .marquee .track span{ font-family:var(--font-head); font-weight:800; text-transform:uppercase; letter-spacing:.08em; font-size:.95rem; display:inline-flex; align-items:center; gap:2.2rem; }
-  .marquee .track b{ opacity:.55; }
-  @keyframes marq{ to{ transform:translateX(-50%); } }
-  @media (prefers-reduced-motion:reduce){ .marquee .track{ animation:none; } }
+  /* ====================== WHAT IS LEAN + DONUT ====================== */
+  .lean{ background:#fff; }
+  .lean-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(32px,5vw,68px); align-items:center; }
+  .lean-viz{ text-align:center; }
+  .donut-wrap{ position:relative; width:min(300px,82%); margin:0 auto; }
+  .donut{ width:100%; height:auto; display:block; }
+  .donut-track{ fill:none; stroke:var(--cream-2); stroke-width:3.4; }
+  .donut-seg{ fill:none; stroke-width:3.4; stroke-linecap:butt; }
+  .s-val{ stroke:var(--red); } .s-nec{ stroke:var(--navy); } .s-waste{ stroke:var(--gold); }
+  .donut-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-center .dn{ font-weight:800; font-size:clamp(1.9rem,4vw,2.4rem); color:var(--navy); line-height:1; }
+  .donut-center .dl{ font-size:.74rem; color:var(--muted); margin-top:.25rem; line-height:1.15; }
+  .donut-legend{ list-style:none; padding:0; margin:1.5rem auto 0; display:inline-grid; gap:.55rem; text-align:left; min-width:230px; }
+  .donut-legend li{ display:flex; align-items:center; gap:.6rem; font-size:.92rem; font-weight:500; color:var(--ink); }
+  .donut-legend b{ margin-left:auto; color:var(--ink); }
+  .donut-legend .k{ width:14px; height:14px; border-radius:4px; flex:0 0 auto; }
+  .k-val{ background:var(--red); } .k-nec{ background:var(--navy); } .k-waste{ background:var(--gold); }
+  .donut-note{ font-size:.8rem; color:var(--muted); margin:1rem auto 0; max-width:38ch; }
+  .lean-copy h2{ font-size:clamp(1.8rem,3.6vw,2.7rem); }
+  .lean-copy>p{ font-size:1.02rem; }
+  .why-list{ list-style:none; padding:0; margin:1.4rem 0 0; display:grid; gap:1rem; }
+  .why-list li{ display:flex; gap:.85rem; align-items:flex-start; }
+  .why-list .ic{ width:44px; height:44px; border-radius:13px; background:var(--navy-soft); display:grid; place-items:center; flex:0 0 auto; }
+  .why-list .ic svg{ width:22px; height:22px; color:var(--navy); }
+  .why-list li:nth-child(odd) .ic{ background:var(--red-soft); } .why-list li:nth-child(odd) .ic svg{ color:var(--red); }
+  .why-list b{ display:block; margin-bottom:.1rem; }
+  .why-list div{ font-size:.95rem; color:var(--ink-soft); }
+  @media (max-width:860px){ .lean-grid{ grid-template-columns:1fr; } .lean-viz{ order:2; } }
 
   /* ====================== E / R / R ====================== */
   .err-head{ display:grid; grid-template-columns:1.1fr .9fr; gap:1.4rem 3rem; align-items:end; margin-bottom:clamp(28px,4vw,48px); }
@@ -288,7 +327,7 @@
   .reveal{ opacity:0; transform:translateY(26px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
   .reveal.in{ opacity:1; transform:none; }
   @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
-  .cfa-mobile{ position:fixed; inset:82px 0 auto 0; background:var(--cream); border-bottom:1px solid var(--line); box-shadow:var(--shadow-md); transform:translateY(-140%); transition:transform .32s var(--ease); z-index:55; padding:1.2rem clamp(20px,5vw,40px) 1.6rem; }
+  .cfa-mobile{ position:fixed; top:82px; left:0; right:0; background:var(--cream); border-bottom:1px solid var(--line); box-shadow:var(--shadow-md); transform:translateY(-140%); transition:transform .32s var(--ease); z-index:59; padding:1.2rem clamp(20px,5vw,40px) 1.6rem; max-height:calc(100vh - 82px); overflow-y:auto; }
   .cfa-mobile.open{ transform:translateY(0); }
   .cfa-mobile a{ display:block; font-family:var(--font-head); font-weight:700; font-size:1.1rem; padding:.85rem 0; border-bottom:1px solid var(--line); }
   .cfa-mobile .m-actions{ display:flex; gap:.8rem; margin-top:1.2rem; } .cfa-mobile .m-actions .btn{ flex:1; }
@@ -303,6 +342,7 @@
 </head>
 
 <body class="cfa-page">
+  <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 
   <div class="cfa-topbar">
     Pilot Cohort 1 kicks off <strong>July&nbsp;2026</strong> — a second cohort of 100 restaurants follows January&nbsp;2027. <a href="#interest">Express your interest →</a>
@@ -374,13 +414,42 @@
     </div>
   </section>
 
-  <!-- ===================== MARQUEE ===================== -->
-  <div class="marquee" aria-hidden="true">
-    <div class="track">
-      <span>Engage <b>·</b> Retain <b>·</b> Reward <b>·</b> Create Capacity <b>·</b> Continuous Improvement <b>·</b> Our Pleasure <b>·</b></span>
-      <span>Engage <b>·</b> Retain <b>·</b> Reward <b>·</b> Create Capacity <b>·</b> Continuous Improvement <b>·</b> Our Pleasure <b>·</b></span>
+  <!-- ===================== WHAT IS LEAN ===================== -->
+  <section class="cfa-section lean" id="what-is-lean" aria-labelledby="leanTitle">
+    <div class="cfa-wrap">
+      <div class="lean-grid">
+        <div class="lean-viz reveal">
+          <div class="donut-wrap">
+            <svg class="donut" viewBox="0 0 36 36" role="img" aria-label="Where a typical shift goes: 20% value-adding work, 35% necessary support, 45% waste that Lean targets">
+              <circle class="donut-track" cx="18" cy="18" r="15.9155"></circle>
+              <circle class="donut-seg s-val"   cx="18" cy="18" r="15.9155" stroke-dasharray="20 80" stroke-dashoffset="25"></circle>
+              <circle class="donut-seg s-nec"   cx="18" cy="18" r="15.9155" stroke-dasharray="35 65" stroke-dashoffset="5"></circle>
+              <circle class="donut-seg s-waste" cx="18" cy="18" r="15.9155" stroke-dasharray="45 55" stroke-dashoffset="70"></circle>
+            </svg>
+            <div class="donut-center"><span class="dn">45%</span><span class="dl">waste to<br>reclaim</span></div>
+          </div>
+          <ul class="donut-legend">
+            <li><span class="k k-val"></span> Value-adding work <b>20%</b></li>
+            <li><span class="k k-nec"></span> Necessary support <b>35%</b></li>
+            <li><span class="k k-waste"></span> Waste Lean targets <b>45%</b></li>
+          </ul>
+          <p class="donut-note">Illustrative. In most operations a large share of effort is non-value-adding — Lean turns that waste back into capacity for your team and guests.</p>
+        </div>
+        <div class="lean-copy reveal">
+          <span class="eyebrow navy">What is Lean</span>
+          <h2 id="leanTitle">Less waste. More of what matters.</h2>
+          <p>Lean is a proven, people-first way of working that helps your team <strong>see and remove waste</strong> — the waiting, extra motion and rework that quietly eat up a shift — so more time and energy go to caring for guests and each other.</p>
+          <p>It isn't about working harder or cutting corners. It's about making the <strong>right way the easy way</strong>, then improving it a little every day.</p>
+          <ul class="why-list">
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><div><b>Create capacity</b>Do more of what matters — without burning people out.</div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span><div><b>Improve flow &amp; consistency</b>Smoother shifts and fewer surprises, every day.</div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div><b>Engage &amp; retain your team</b>People stay where they're growing and heard.</div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.2-8.6"/><path d="M22 4 12 14.01l-3-3"/></svg></span><div><b>Build a daily habit of improvement</b>Small wins that compound into a lasting culture.</div></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
   <!-- ===================== ENGAGE / RETAIN / REWARD ===================== -->
   <section class="cfa-section" id="why" aria-labelledby="whyTitle">
@@ -642,7 +711,10 @@
   /* ============ CONFIG — EDIT BEFORE GO-LIVE ============ */
   window.CFA_CONFIG = window.CFA_CONFIG || {
     loginUrl:"https://cfalean365.com/wp-login.php",
-    formEndpoint:"/gf-proxy.php"
+    // WordPress REST endpoint registered by cfa-forms-snippet.php (recommended,
+    // no file upload). If you instead upload gf-proxy.php to site root, set this
+    // to "/gf-proxy.php".
+    formEndpoint:"/wp-json/cfa/v1/submit"
   };
 
   document.querySelectorAll('[data-login]').forEach(function(a){ a.setAttribute('href', window.CFA_CONFIG.loginUrl); });
@@ -654,8 +726,18 @@
 
   var burger=document.getElementById('cfaBurger'), mobile=document.getElementById('cfaMobile');
   function closeMenu(){ if(!burger||!mobile)return; burger.setAttribute('aria-expanded','false'); mobile.classList.remove('open'); }
-  if(burger&&mobile){ burger.addEventListener('click',function(){ var o=burger.getAttribute('aria-expanded')==='true'; burger.setAttribute('aria-expanded',String(!o)); mobile.classList.toggle('open',!o); });
-    mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMenu); }); }
+  function openMenu(){ if(!burger||!mobile)return;
+    // anchor the panel just below the header (handles topbar / WP admin bar offsets)
+    if(header){ mobile.style.top = Math.max(0, Math.round(header.getBoundingClientRect().bottom)) + 'px'; }
+    burger.setAttribute('aria-expanded','true'); mobile.classList.add('open'); }
+  if(burger&&mobile){
+    burger.addEventListener('click',function(e){ e.stopPropagation(); (burger.getAttribute('aria-expanded')==='true'?closeMenu:openMenu)(); });
+    mobile.addEventListener('click',function(e){ e.stopPropagation(); });
+    mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMenu); });
+    document.addEventListener('click',closeMenu);
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.keyCode===27) closeMenu(); });
+    window.addEventListener('resize',function(){ if(window.innerWidth>960) closeMenu(); });
+  }
 
   var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var reveals=document.querySelectorAll('.reveal');

@@ -16,8 +16,14 @@ DIVI / WordPress site **without touching the LMS or theme code**.
 |------|-----------|
 | `index.html` | The complete homepage — HTML + CSS + JS in one file (no build step, no external JS). Use for the Code-module / WPCode routes and for previewing. |
 | `page-lean365.php` | WordPress **page template** version of the same page (generated from `index.html`). Use for the drop-in-file route. Calls `wp_head()`/`wp_footer()` so plugins — including the Chick-fil-A address-autocomplete snippet — load. |
-| `gf-proxy.php` | Secure server-side handler for the two GravityForms. Keys stay on the server. |
+| `cfa-forms-snippet.php` | **Recommended** form handler — paste into WPCode/Code Snippets to expose `POST /wp-json/cfa/v1/submit`. No file upload, no keys. |
+| `gf-proxy.php` | Alternative standalone form handler (upload to site root). Same behavior as the snippet. |
 | `README.md` | This guide. |
+
+**Fonts:** headings use **Apercu** (your Chick-fil-A brand font) with a Poppins/
+system fallback; body uses Apercu → Calibri/Lato fallback. Font rules are marked
+`!important` and scoped to `.cfa-page` so the host theme can't override them —
+this is what makes the deployed page match the preview.
 
 > **Note on this site's builder:** the "Chick-fil-A Builder / Theme Builder" is
 > **Divi, white-labeled** by the *Chick-fil-A Ghoster* plugin. Wherever Divi docs
@@ -73,27 +79,32 @@ window.CFA_CONFIG = {
 
 ---
 
-## Forms (Support #37 + Join Pilot Interest #36)
+## Forms — "Sorry, something went wrong" means the endpoint isn't live yet
 
-The forms submit to `gf-proxy.php`, which talks to GravityForms **server-side**
-so your API keys are never in the browser. It works two ways and auto-detects:
+The page posts to `window.CFA_CONFIG.formEndpoint`. If that URL doesn't exist,
+you get *"Sorry, something went wrong."* Pick ONE handler:
 
-- **Mode A (recommended, no keys):** place `gf-proxy.php` where it can reach
-  `wp-load.php` (your WordPress root). It calls `GFAPI::submit_form()` directly —
-  full validation, notifications and confirmations, **no consumer key/secret needed.**
-- **Mode B (fallback):** if WordPress can't be loaded, it uses the GF REST API v2
-  with keys read from environment variables.
+### Option 1 · WordPress REST snippet — RECOMMENDED (no file upload) ✅
+1. **WPCode → Add Snippet → Add Your Custom Code → "PHP Snippet."**
+2. Paste the contents of **`cfa-forms-snippet.php`**, set it to **Run Everywhere**, Save & Activate.
+3. It registers **`POST /wp-json/cfa/v1/submit`** — which is the default
+   `formEndpoint` already set in the page. Nothing else to change.
+   *(Best on WP Engine — runs inside WordPress, no loose PHP file, no caching quirks.)*
 
-### You must verify the field-ID map
+### Option 2 · Upload `gf-proxy.php` (if you prefer a file)
+- **Where:** your site's **web root** — the folder that contains `wp-config.php`
+  / `wp-load.php`. On **WP Engine**: *User Portal → your site → SFTP/Git → connect
+  via SFTP → drop `gf-proxy.php` in the root* (same level as `wp-config.php`).
+- Then set `formEndpoint` to **`/gf-proxy.php`** in the page's `CFA_CONFIG`.
 
-Open `gf-proxy.php` → the **`$FIELD_MAPS`** block. Map each field name to the real
-GravityForms field ID for forms 36 and 37. Find IDs in the GF form editor (click a
-field → the Field ID shows on the right), or by fetching
-`/wp-json/gf/v2/forms/36` and `/wp-json/gf/v2/forms/37`. I used sensible
-placeholders (e.g. `1.3`/`1.6` for a Name field's first/last) — **these are
-guesses and almost certainly need adjusting.**
+Both handlers do the same thing: run GravityForms **server-side** via
+`GFAPI::submit_form()` (full validation, notifications, confirmations), resolve
+the Chick-fil-A store address from the Google `place_id` by reusing your own
+`cfa_fetch_place_details()`, and need **no API keys in the page**. Field IDs are
+already mapped (Interest 36: `3/4/23/34/32`; Support 37: `1/2/4/3`).
 
-Also set **`ALLOWED_ORIGINS`** to your domain(s) at the top of the file.
+**Requirement either way:** keep your "Chick-fil-A Autocomplete" Code Snippet
+active site-wide (it powers the store-address field).
 
 ---
 
