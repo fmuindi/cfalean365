@@ -121,8 +121,18 @@ steps) was **deliberately left off** the public page.
 
 **Still to add before launch:**
 
-- **Photos** — search `IMAGE SLOT` (hero photo + learning-portal/kit image).
+- **Photos** — add 5 team photos to `assets/` (see `assets/README.md`) or point
+  the `src` paths at your media library. The LMS screenshot is already wired to
+  its live URL. Missing photos fall back to a branded block automatically.
 - **Video** — search `VIDEO EMBED` and paste your YouTube/Vimeo `<iframe>`.
 - **Login URL** — set `loginUrl` in `CFA_CONFIG`.
 - **Form field IDs** — verify `$FIELD_MAPS` in `gf-proxy.php` against forms 36 & 37.
 - Double-check stats and the Point University / cohort details are current.
+
+## Design language
+
+Deliberately built around real brand cues rather than generic templates:
+the **dotted-line motif** from the Chick-fil-A | LEAN365 logo (section rails,
+step connectors, decorative dot fields), the **stopwatch / continuous-loop**
+idea from the LEAN365 mark, an editorial **photo-collage hero**, a real
+**20-week timeline**, a moving highlight marquee, and an "Our Pleasure" tone.
