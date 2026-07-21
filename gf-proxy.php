@@ -54,12 +54,13 @@ $FIELD_MAPS = [
         'role'       => '4',
         'message'    => '5',
     ],
-    // Support — form 37
+    // Support ("Need Help? Our Pleasure!") — form 37
     '37' => [
-        'name'    => '1',
-        'email'   => '2',
-        'subject' => '3',
-        'message' => '4',
+        'first_name' => '1.3',   // Name field → First
+        'last_name'  => '1.6',   // Name field → Last
+        'email'      => '2',
+        'subject'    => '3',
+        'message'    => '4',
     ],
 ];
 

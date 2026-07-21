@@ -3,30 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CFA LEAN365 — Lean Solutions for Chick-fil-A Operators</title>
-<meta name="description" content="CFA LEAN365, a Circle K Supply Chain Solutions company in partnership with Chick-fil-A, delivers practical Lean training, coaching and tools built for CFA Operators and their teams." />
+<title>LEAN365 Essentials — Continuous Improvement for Chick-fil-A Restaurants</title>
+<meta name="description" content="LEAN365 Essentials is a step-by-step program that helps Chick-fil-A teams create capacity, strengthen habits and build a lasting culture of continuous improvement. Join the pilot." />
 
 <!--
   ============================================================================
   CFA LEAN365 — HOMEPAGE (self-contained: HTML + CSS + JS in one file)
   ----------------------------------------------------------------------------
-  HOW TO INSTALL (WordPress / DIVI, without touching the LMS):
-    Option A (recommended): create a blank page, add a DIVI "Code" module,
-      and paste EVERYTHING BELOW <body>…</body> (styles + markup + script)
-      into it. Set this page as the site's static homepage.
-    Option B: use a blank page template and paste this whole file.
-  Your existing "redirect logged-in users to the LMS" snippet keeps working —
-  this file only renders for logged-out visitors.
+  INSTALL (WordPress / DIVI, without touching the LMS):
+    • Create a blank page → add a DIVI "Code" module → paste everything between
+      <body> and </body>. Set the page as the static homepage.
+    • Your existing "redirect logged-in users to the LMS" snippet keeps working;
+      this page only renders for logged-out visitors.
 
-  BEFORE GOING LIVE — search this file for the word "CONFIG" and update:
-    • window.CFA_CONFIG.loginUrl        → your real LMS/login URL
-    • window.CFA_CONFIG.formEndpoint    → path to gf-proxy.php (see README)
-    • Replace the logo URL if it changes
-    • Swap the decorative image blocks (marked "IMAGE SLOT") for real photos
-  Fonts: Aptos Display / Calibri are proprietary and cannot be served on the
-  open web, so this page requests them first (used automatically if a visitor
-  has them) and falls back to close, licensed Google Fonts (Poppins / Lato).
-  See README.md for full details.
+  BEFORE GO-LIVE — search for "CONFIG" (in the <script>) and set:
+    • loginUrl      → your real member/LMS login URL
+    • formEndpoint  → path to gf-proxy.php
+  Then search "IMAGE SLOT" and drop in real photos, and add your video URL
+  where marked "VIDEO EMBED". See README.md.
   ============================================================================
 -->
 
@@ -35,376 +29,297 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Lato:wght@400;500;700&display=swap" rel="stylesheet" />
 
 <style>
-  /* ===========================================================
-     DESIGN TOKENS
-     =========================================================== */
+  /* ====================== DESIGN TOKENS ====================== */
   :root{
-    /* Brand — Chick-fil-A red + LEAN365 warm neutrals */
-    --red:        #E51636;   /* Chick-fil-A signature red */
-    --red-dark:   #C10E2B;   /* hover / pressed */
-    --red-soft:   #FDE8EC;   /* tint for backgrounds */
-    --ink:        #1E1E1E;   /* primary text */
-    --ink-soft:   #4A4A4A;   /* secondary text */
-    --muted:      #6E6E6E;   /* captions */
-    --cream:      #FBF6EF;   /* warm page background */
-    --sand:       #F3EAE0;   /* alt warm section */
+    /* Brand — Chick-fil-A red + LEAN365 teal-navy */
+    --red:        #E4002B;
+    --red-dark:   #C10024;
+    --red-soft:   #FCE6EA;
+    --navy:       #0B4C5E;   /* LEAN365 logo blue */
+    --navy-dark:  #073744;
+    --navy-soft:  #E4EFF2;
+    --gold:       #F5B335;
+
+    --ink:        #1E1E1E;
+    --ink-soft:   #464646;
+    --muted:      #6E6E6E;
+    --cream:      #FBF7F1;
     --white:      #FFFFFF;
-    --line:       #ECE4DA;   /* borders on cream */
-    --gold:       #F5B335;   /* small warm accent */
-    --navy:       #1D2A3A;   /* deep contrast for footer */
+    --line:       #ECE3D8;
 
-    /* Radii — smooth, Chick-fil-A style edges */
-    --r-pill:     999px;
-    --r-lg:       28px;
-    --r-md:       18px;
-    --r-sm:       12px;
+    --r-pill: 999px; --r-lg: 28px; --r-md: 18px; --r-sm: 12px;
+    --shadow-sm: 0 2px 8px rgba(20,25,30,.06);
+    --shadow-md: 0 12px 30px rgba(20,25,30,.10);
+    --shadow-lg: 0 26px 60px rgba(20,25,30,.16);
 
-    /* Shadows — soft & warm, never harsh */
-    --shadow-sm:  0 2px 8px rgba(30,20,10,.06);
-    --shadow-md:  0 12px 30px rgba(30,20,10,.10);
-    --shadow-lg:  0 26px 60px rgba(30,20,10,.16);
-
-    /* Type */
     --font-head: "Aptos Display","Aptos","Poppins","Segoe UI",system-ui,sans-serif;
     --font-body: "Calibri","Carlito","Lato","Segoe UI",system-ui,sans-serif;
-
     --maxw: 1200px;
     --ease: cubic-bezier(.22,.61,.36,1);
   }
-
   *,*::before,*::after{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 
   body.cfa-page{
-    margin:0;
-    font-family:var(--font-body);
-    color:var(--ink);
-    background:var(--cream);
-    font-size:clamp(16px,1.05vw,18px);
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    margin:0; font-family:var(--font-body); color:var(--ink); background:var(--cream);
+    font-size:clamp(16px,1.05vw,18px); line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden;
   }
   .cfa-page h1,.cfa-page h2,.cfa-page h3,.cfa-page h4{
-    font-family:var(--font-head);
-    font-weight:800;
-    line-height:1.08;
-    letter-spacing:-.015em;
-    color:var(--ink);
-    margin:0 0 .4em;
+    font-family:var(--font-head); font-weight:800; line-height:1.1; letter-spacing:-.015em; color:var(--ink); margin:0 0 .4em;
   }
   .cfa-page p{ margin:0 0 1rem; color:var(--ink-soft); }
   .cfa-page a{ color:inherit; text-decoration:none; }
   .cfa-page img{ max-width:100%; display:block; }
-  .cfa-page :focus-visible{ outline:3px solid var(--red); outline-offset:3px; border-radius:6px; }
+  .cfa-page :focus-visible{ outline:3px solid var(--navy); outline-offset:3px; border-radius:6px; }
 
   .cfa-wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(20px,5vw,40px); }
-  .cfa-section{ padding-block:clamp(56px,8vw,110px); }
-  .eyebrow{
-    display:inline-block; font-family:var(--font-head); font-weight:700;
-    font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--red); margin-bottom:.9rem;
-  }
-  .lead{ font-size:clamp(1.05rem,1.6vw,1.28rem); color:var(--ink-soft); max-width:60ch; }
+  .cfa-section{ padding-block:clamp(56px,8vw,108px); }
+  .eyebrow{ display:inline-block; font-family:var(--font-head); font-weight:700; font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:var(--red); margin-bottom:.9rem; }
+  .eyebrow.navy{ color:var(--navy); }
+  .lead{ font-size:clamp(1.05rem,1.6vw,1.28rem); color:var(--ink-soft); max-width:62ch; }
   .center{ text-align:center; } .center .lead{ margin-inline:auto; }
 
-  /* ===========================================================
-     BUTTONS — smooth pill edges
-     =========================================================== */
+  /* ====================== BUTTONS ====================== */
   .btn{
-    --_bg:var(--red); --_fg:#fff;
+    --_bg:var(--red); --_fg:#fff; --_bd:var(--red);
     display:inline-flex; align-items:center; justify-content:center; gap:.55em;
-    font-family:var(--font-head); font-weight:700; font-size:1rem;
-    padding:.9em 1.7em; border-radius:var(--r-pill);
-    background:var(--_bg); color:var(--_fg);
-    border:2px solid var(--_bg); cursor:pointer;
-    transition:transform .18s var(--ease), background .18s var(--ease),
-               box-shadow .18s var(--ease), color .18s var(--ease);
+    font-family:var(--font-head); font-weight:700; font-size:1rem; padding:.9em 1.7em;
+    border-radius:var(--r-pill); background:var(--_bg); color:var(--_fg); border:2px solid var(--_bd);
+    cursor:pointer; transition:transform .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
     box-shadow:var(--shadow-sm); white-space:nowrap;
   }
   .btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md); background:var(--red-dark); border-color:var(--red-dark); }
   .btn:active{ transform:translateY(0); }
-  .btn--ghost{ --_bg:transparent; --_fg:var(--ink); border-color:var(--ink); box-shadow:none; }
-  .btn--ghost:hover{ background:var(--ink); color:#fff; border-color:var(--ink); }
-  .btn--light{ --_bg:#fff; --_fg:var(--red); border-color:#fff; }
+  .btn--navy{ --_bg:var(--navy); --_bd:var(--navy); }
+  .btn--navy:hover{ background:var(--navy-dark); border-color:var(--navy-dark); }
+  .btn--ghost{ --_bg:transparent; --_fg:var(--navy); --_bd:var(--navy); box-shadow:none; }
+  .btn--ghost:hover{ background:var(--navy); color:#fff; border-color:var(--navy); }
+  .btn--light{ --_bg:#fff; --_fg:var(--red); --_bd:#fff; }
   .btn--light:hover{ background:var(--red-soft); border-color:var(--red-soft); color:var(--red-dark); }
   .btn--lg{ padding:1.05em 2.1em; font-size:1.08rem; }
   .btn .ico{ width:1.05em; height:1.05em; }
 
-  /* ===========================================================
-     HEADER / NAV
-     =========================================================== */
-  .cfa-topbar{
-    background:var(--red); color:#fff; text-align:center;
-    font-size:.86rem; padding:.5rem 1rem; font-weight:500;
-  }
-  .cfa-topbar strong{ font-weight:700; }
-  .cfa-header{
-    position:sticky; top:0; z-index:60; background:rgba(251,246,239,.85);
-    backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid transparent;
-    transition:box-shadow .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
-  }
-  .cfa-header.is-scrolled{ box-shadow:var(--shadow-sm); border-color:var(--line); background:rgba(251,246,239,.94); }
-  .cfa-nav{ display:flex; align-items:center; gap:1.5rem; height:78px; }
-  .cfa-logo{ display:flex; align-items:center; gap:.6rem; flex:0 0 auto; }
-  .cfa-logo img{ height:44px; width:auto; }
-  .cfa-logo .fallback{
-    font-family:var(--font-head); font-weight:800; font-size:1.15rem; color:var(--ink);
-    display:flex; align-items:center; gap:.35rem;
-  }
+  /* ====================== TOP BAR + HEADER ====================== */
+  .cfa-topbar{ background:var(--navy); color:#fff; text-align:center; font-size:.86rem; padding:.55rem 1rem; font-weight:500; }
+  .cfa-topbar a{ color:#fff; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+  .cfa-header{ position:sticky; top:0; z-index:60; background:rgba(251,247,241,.85); backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid transparent; transition:box-shadow .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease); }
+  .cfa-header.is-scrolled{ box-shadow:var(--shadow-sm); border-color:var(--line); background:rgba(251,247,241,.95); }
+  .cfa-nav{ display:flex; align-items:center; gap:1.5rem; height:80px; }
+  .cfa-logo{ display:flex; align-items:center; flex:0 0 auto; }
+  .cfa-logo img{ height:46px; width:auto; }
+  .cfa-logo .fallback{ font-family:var(--font-head); font-weight:800; font-size:1.2rem; color:var(--navy); }
   .cfa-logo .fallback b{ color:var(--red); }
-  .cfa-navlinks{ display:flex; align-items:center; gap:1.6rem; margin-left:auto; }
-  .cfa-navlinks a{
-    font-family:var(--font-head); font-weight:600; font-size:.98rem; color:var(--ink);
-    position:relative; padding:.25rem 0;
-  }
-  .cfa-navlinks a::after{
-    content:""; position:absolute; left:0; right:100%; bottom:-3px; height:2px;
-    background:var(--red); transition:right .25s var(--ease);
-  }
+  .cfa-navlinks{ display:flex; align-items:center; gap:1.7rem; margin-left:auto; }
+  .cfa-navlinks a{ font-family:var(--font-head); font-weight:600; font-size:.98rem; color:var(--ink); position:relative; padding:.25rem 0; }
+  .cfa-navlinks a::after{ content:""; position:absolute; left:0; right:100%; bottom:-3px; height:2px; background:var(--red); transition:right .25s var(--ease); }
   .cfa-navlinks a:hover::after{ right:0; }
   .cfa-actions{ display:flex; align-items:center; gap:.7rem; }
-  .cfa-login{ font-family:var(--font-head); font-weight:700; color:var(--ink); padding:.55rem .2rem; }
+  .cfa-login{ font-family:var(--font-head); font-weight:700; color:var(--navy); padding:.55rem .2rem; }
   .cfa-login:hover{ color:var(--red); }
-
   .cfa-burger{ display:none; background:none; border:0; cursor:pointer; padding:.5rem; margin-left:auto; }
-  .cfa-burger span{ display:block; width:26px; height:2.5px; background:var(--ink); border-radius:2px; transition:.25s var(--ease); }
+  .cfa-burger span{ display:block; width:26px; height:2.5px; background:var(--navy); border-radius:2px; transition:.25s var(--ease); }
   .cfa-burger span+span{ margin-top:6px; }
   .cfa-burger[aria-expanded="true"] span:nth-child(1){ transform:translateY(8.5px) rotate(45deg); }
   .cfa-burger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
   .cfa-burger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-8.5px) rotate(-45deg); }
 
-  /* ===========================================================
-     HERO
-     =========================================================== */
-  .hero{ position:relative; padding-top:clamp(40px,6vw,72px); padding-bottom:clamp(50px,7vw,90px); }
+  /* ====================== HERO ====================== */
+  .hero{ padding-top:clamp(40px,6vw,72px); padding-bottom:clamp(50px,7vw,90px); }
   .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(30px,5vw,64px); align-items:center; }
-  .hero-badges{ display:flex; align-items:center; gap:.7rem; flex-wrap:wrap; margin-bottom:1.4rem; }
-  .pill-badge{
-    display:inline-flex; align-items:center; gap:.5rem; background:#fff; border:1px solid var(--line);
-    padding:.45rem .9rem; border-radius:var(--r-pill); font-size:.82rem; font-weight:600;
-    color:var(--ink-soft); box-shadow:var(--shadow-sm);
-  }
+  .hero-badges{ display:flex; align-items:center; gap:.7rem; flex-wrap:wrap; margin-bottom:1.3rem; }
+  .pill-badge{ display:inline-flex; align-items:center; gap:.5rem; background:#fff; border:1px solid var(--line); padding:.45rem .9rem; border-radius:var(--r-pill); font-size:.82rem; font-weight:600; color:var(--ink-soft); box-shadow:var(--shadow-sm); }
   .pill-badge .dot{ width:9px; height:9px; border-radius:50%; background:var(--red); }
   .hero h1{ font-size:clamp(2.3rem,5.2vw,4rem); }
   .hero h1 .hl{ color:var(--red); }
   .hero .lead{ margin-block:1.2rem 2rem; }
   .hero-cta{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:center; }
-  .hero-note{ margin-top:1.4rem; font-size:.9rem; color:var(--muted); display:flex; align-items:center; gap:.5rem; }
-  .hero-note svg{ width:1.1em; height:1.1em; color:var(--red); flex:0 0 auto; }
+  .hero-note{ margin-top:1.4rem; font-size:.92rem; color:var(--muted); display:flex; align-items:center; gap:.5rem; }
+  .hero-note a{ color:var(--red); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 
-  /* Decorative hero visual (IMAGE SLOT — replace .hero-visual inner with <img>) */
   .hero-visual{ position:relative; }
   .hero-visual .frame{
     position:relative; border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/3.4;
-    background:
-      radial-gradient(120% 90% at 80% 10%, rgba(229,22,54,.14), transparent 60%),
-      linear-gradient(150deg,#fff 0%, #FDEFE3 100%);
-    border:1px solid var(--line); box-shadow:var(--shadow-lg);
-    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(120% 90% at 80% 10%, rgba(228,0,43,.12), transparent 60%), linear-gradient(150deg,#fff 0%, #F1F6F8 100%);
+    border:1px solid var(--line); box-shadow:var(--shadow-lg); display:flex; align-items:center; justify-content:center;
   }
   .hero-visual .frame .placeholder{ text-align:center; color:var(--muted); padding:2rem; }
-  .hero-visual .frame .placeholder .mark{
-    width:96px; height:96px; margin:0 auto 1rem; border-radius:24px; background:var(--red);
-    display:grid; place-items:center; box-shadow:var(--shadow-md);
-  }
+  .hero-visual .frame .placeholder .mark{ width:96px; height:96px; margin:0 auto 1rem; border-radius:24px; background:var(--navy); display:grid; place-items:center; box-shadow:var(--shadow-md); }
   .hero-visual .frame .placeholder .mark svg{ width:52px; height:52px; color:#fff; }
-  .float-card{
-    position:absolute; background:#fff; border-radius:var(--r-md); padding:.9rem 1.1rem;
-    box-shadow:var(--shadow-md); display:flex; align-items:center; gap:.7rem; border:1px solid var(--line);
-  }
-  .float-card .ic{ width:40px; height:40px; border-radius:12px; background:var(--red-soft); display:grid; place-items:center; }
-  .float-card .ic svg{ width:22px; height:22px; color:var(--red); }
-  .float-card .t{ font-family:var(--font-head); font-weight:800; font-size:1.05rem; line-height:1; }
+  .float-card{ position:absolute; background:#fff; border-radius:var(--r-md); padding:.9rem 1.1rem; box-shadow:var(--shadow-md); display:flex; align-items:center; gap:.7rem; border:1px solid var(--line); }
+  .float-card .ic{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; }
+  .float-card .ic.red{ background:var(--red-soft); } .float-card .ic.red svg{ color:var(--red); }
+  .float-card .ic.navy{ background:var(--navy-soft); } .float-card .ic.navy svg{ color:var(--navy); }
+  .float-card .ic svg{ width:22px; height:22px; }
+  .float-card .t{ font-family:var(--font-head); font-weight:800; font-size:1.1rem; line-height:1; }
   .float-card .s{ font-size:.76rem; color:var(--muted); }
-  .float-card.fc1{ left:-18px; top:16%; } .float-card.fc2{ right:-14px; bottom:12%; }
+  .float-card.fc1{ left:-18px; top:14%; } .float-card.fc2{ right:-14px; bottom:12%; }
 
-  /* ===========================================================
-     TRUST STRIP
-     =========================================================== */
+  /* ====================== TRUST STRIP ====================== */
   .trust{ border-block:1px solid var(--line); background:#fff; }
-  .trust .cfa-wrap{ padding-block:1.6rem; }
+  .trust .cfa-wrap{ padding-block:1.5rem; }
   .trust-row{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:1rem 2.6rem; }
-  .trust-row .label{ font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; }
-  .trust-row .name{ font-family:var(--font-head); font-weight:800; font-size:1.15rem; color:var(--ink); opacity:.75; }
+  .trust-row .label{ font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .trust-row .name{ font-family:var(--font-head); font-weight:800; font-size:1.1rem; color:var(--navy); opacity:.8; }
 
-  /* ===========================================================
-     VALUE CARDS
-     =========================================================== */
+  /* ====================== ENGAGE / RETAIN / REWARD ====================== */
   .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(18px,2.4vw,28px); margin-top:clamp(30px,4vw,52px); }
-  .card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--r-lg);
-    padding:clamp(24px,3vw,34px); box-shadow:var(--shadow-sm);
-    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
-  }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(24px,3vw,34px); box-shadow:var(--shadow-sm); transition:transform .25s var(--ease), box-shadow .25s var(--ease); position:relative; overflow:hidden; }
+  .card::before{ content:""; position:absolute; inset:0 0 auto 0; height:5px; background:var(--red); }
+  .card:nth-child(2)::before{ background:var(--navy); }
+  .card:nth-child(3)::before{ background:var(--gold); }
   .card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-md); }
-  .card .ic{ width:60px; height:60px; border-radius:18px; background:var(--red-soft); display:grid; place-items:center; margin-bottom:1.2rem; }
+  .card .ic{ width:60px; height:60px; border-radius:18px; background:var(--red-soft); display:grid; place-items:center; margin-bottom:1.2rem; margin-top:.4rem; }
+  .card:nth-child(2) .ic{ background:var(--navy-soft); } .card:nth-child(2) .ic svg{ color:var(--navy); }
+  .card:nth-child(3) .ic{ background:#FDF0D8; } .card:nth-child(3) .ic svg{ color:#C98A12; }
   .card .ic svg{ width:30px; height:30px; color:var(--red); }
-  .card h3{ font-size:1.3rem; }
-  .card p{ margin-bottom:0; font-size:.98rem; }
+  .card h3{ font-size:1.3rem; } .card p{ margin-bottom:0; font-size:.98rem; }
+  .card .kpi{ font-family:var(--font-head); font-weight:800; color:var(--navy); }
 
-  /* ===========================================================
-     HOW IT WORKS
-     =========================================================== */
-  .how{ background:#fff; }
-  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,34px); margin-top:clamp(30px,4vw,52px); counter-reset:step; }
-  .step{ position:relative; padding-top:1rem; }
-  .step .num{
-    counter-increment:step; font-family:var(--font-head); font-weight:800; font-size:2.6rem; color:var(--red);
-    line-height:1; margin-bottom:.6rem; display:flex; align-items:center; gap:.6rem;
-  }
-  .step .num::before{ content:"0" counter(step); }
-  .step h3{ font-size:1.22rem; }
-  .step p{ font-size:.96rem; margin-bottom:0; }
-  .how-cta{ margin-top:clamp(30px,4vw,48px); text-align:center; }
+  /* ====================== PROGRAM PHASES ====================== */
+  .program{ background:#fff; }
+  .phases{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(18px,2.4vw,26px); margin-top:clamp(30px,4vw,52px); }
+  .phase{ border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(22px,2.6vw,30px); background:var(--cream); position:relative; }
+  .phase .ptop{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:1rem; }
+  .phase .pnum{ font-family:var(--font-head); font-weight:800; font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:var(--red); padding:.35rem .75rem; border-radius:var(--r-pill); }
+  .phase:nth-child(2) .pnum{ background:var(--navy); } .phase:nth-child(3) .pnum{ background:var(--gold); color:#5a3d00; }
+  .phase .weeks{ font-size:.82rem; font-weight:700; color:var(--muted); }
+  .phase h3{ font-size:1.35rem; margin-bottom:.5rem; }
+  .phase>p{ font-size:.96rem; }
+  .phase ul{ list-style:none; padding:0; margin:1rem 0 0; display:grid; gap:.6rem; }
+  .phase li{ display:flex; gap:.6rem; align-items:flex-start; font-size:.94rem; color:var(--ink); font-weight:500; }
+  .phase li svg{ width:20px; height:20px; color:var(--red); flex:0 0 auto; margin-top:2px; }
+  .phase:nth-child(2) li svg{ color:var(--navy); } .phase:nth-child(3) li svg{ color:#C98A12; }
+  .program-note{ text-align:center; margin-top:clamp(24px,3vw,40px); font-weight:600; color:var(--navy); }
 
-  /* ===========================================================
-     STATS
-     =========================================================== */
-  .stats-band{ background:var(--red); color:#fff; border-radius:var(--r-lg); padding:clamp(30px,4vw,52px); box-shadow:var(--shadow-md); }
+  /* ====================== STATS ====================== */
+  .stats-band{ background:linear-gradient(135deg,var(--navy) 0%, var(--navy-dark) 100%); color:#fff; border-radius:var(--r-lg); padding:clamp(30px,4vw,52px); box-shadow:var(--shadow-md); }
   .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center; }
-  .stat .n{ font-family:var(--font-head); font-weight:800; font-size:clamp(2.2rem,4vw,3.2rem); line-height:1; }
-  .stat .l{ font-size:.92rem; opacity:.92; margin-top:.4rem; }
-  .stat .n .plus{ opacity:.85; }
+  .stat .n{ font-family:var(--font-head); font-weight:800; font-size:clamp(2.2rem,4vw,3.2rem); line-height:1; color:#fff; }
+  .stat .l{ font-size:.92rem; opacity:.9; margin-top:.4rem; }
 
-  /* ===========================================================
-     FEATURE SPLIT
-     =========================================================== */
-  .split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,5vw,64px); align-items:center; }
-  .split.reverse .split-media{ order:2; }
-  .split-media .frame{
-    border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/3; border:1px solid var(--line);
-    box-shadow:var(--shadow-md);
-    background:linear-gradient(150deg,#FFF 0%, #FDEFE3 100%);
-    display:grid; place-items:center;
-  }
+  /* ====================== HOW THE PILOT WORKS ====================== */
+  .pilot-steps{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-top:clamp(30px,4vw,52px); }
+  .pstep{ background:#fff; border:1px solid var(--line); border-radius:var(--r-md); padding:1.3rem 1rem; text-align:center; position:relative; box-shadow:var(--shadow-sm); }
+  .pstep .circle{ width:46px; height:46px; margin:0 auto .8rem; border-radius:50%; background:var(--red); color:#fff; font-family:var(--font-head); font-weight:800; font-size:1.2rem; display:grid; place-items:center; }
+  .pstep:nth-child(even) .circle{ background:var(--navy); }
+  .pstep h4{ font-size:1rem; margin-bottom:.35rem; }
+  .pstep p{ font-size:.85rem; margin:0; color:var(--muted); }
+  .pilot-note{ text-align:center; margin-top:clamp(24px,3vw,38px); font-weight:600; color:var(--ink); }
+  .pilot-cta{ text-align:center; margin-top:1.6rem; }
+
+  /* ====================== WHAT'S INCLUDED (SPLIT) ====================== */
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,5vw,60px); align-items:center; }
+  .split-media .frame{ border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/3.3; border:1px solid var(--line); box-shadow:var(--shadow-md); background:linear-gradient(150deg,#fff 0%, #F1F6F8 100%); display:grid; place-items:center; }
   .split-media .placeholder{ text-align:center; color:var(--muted); padding:1.5rem; }
-  .split-media .placeholder svg{ width:60px; height:60px; color:var(--red); opacity:.5; }
-  .checklist{ list-style:none; padding:0; margin:1.4rem 0 2rem; display:grid; gap:.85rem; }
-  .checklist li{ display:flex; gap:.75rem; align-items:flex-start; font-weight:500; color:var(--ink); }
-  .checklist svg{ width:24px; height:24px; color:var(--red); flex:0 0 auto; margin-top:1px; }
+  .split-media .placeholder svg{ width:60px; height:60px; color:var(--navy); opacity:.5; }
+  .incl-list{ list-style:none; padding:0; margin:1.4rem 0 0; display:grid; grid-template-columns:1fr 1fr; gap:1.1rem 1.4rem; }
+  .incl-list li{ display:flex; gap:.7rem; align-items:flex-start; }
+  .incl-list .ic{ width:38px; height:38px; border-radius:11px; background:var(--red-soft); display:grid; place-items:center; flex:0 0 auto; }
+  .incl-list .ic svg{ width:20px; height:20px; color:var(--red); }
+  .incl-list li:nth-child(even) .ic{ background:var(--navy-soft); } .incl-list li:nth-child(even) .ic svg{ color:var(--navy); }
+  .incl-list .t{ font-family:var(--font-head); font-weight:700; font-size:.98rem; display:block; margin-bottom:.15rem; }
+  .incl-list .s{ font-size:.86rem; color:var(--muted); }
 
-  /* ===========================================================
-     FORMS
-     =========================================================== */
-  .forms{ background:#fff; }
-  .forms-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,3.5vw,44px); margin-top:clamp(30px,4vw,48px); align-items:start; }
-  .form-card{
-    background:var(--cream); border:1px solid var(--line); border-radius:var(--r-lg);
-    padding:clamp(26px,3.2vw,40px); box-shadow:var(--shadow-sm);
-  }
-  .form-card.accent{ background:var(--red); color:#fff; border-color:var(--red); }
+  /* ====================== VIDEO ====================== */
+  .video-sec{ background:#fff; }
+  .video-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(28px,4vw,54px); align-items:center; }
+  .video-frame{ position:relative; border-radius:var(--r-lg); overflow:hidden; aspect-ratio:16/9; background:var(--navy); box-shadow:var(--shadow-lg); display:grid; place-items:center; }
+  .video-frame .play{ width:78px; height:78px; border-radius:50%; background:rgba(255,255,255,.95); display:grid; place-items:center; box-shadow:var(--shadow-md); cursor:pointer; transition:transform .2s var(--ease); }
+  .video-frame .play:hover{ transform:scale(1.06); }
+  .video-frame .play svg{ width:30px; height:30px; color:var(--red); margin-left:4px; }
+  .video-frame .cap{ position:absolute; bottom:14px; left:16px; color:#fff; font-size:.82rem; opacity:.85; }
+
+  /* ====================== FORMS ====================== */
+  .forms{ background:var(--cream); }
+  .cohort-callout{ background:#fff; border:1px solid var(--line); border-left:5px solid var(--red); border-radius:var(--r-md); padding:1.2rem 1.4rem; margin:0 auto clamp(30px,4vw,44px); max-width:900px; box-shadow:var(--shadow-sm); font-size:.98rem; color:var(--ink-soft); }
+  .cohort-callout strong{ color:var(--ink); }
+  .forms-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,3.5vw,44px); align-items:start; }
+  .form-card{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(26px,3.2vw,40px); box-shadow:var(--shadow-sm); }
+  .form-card.accent{ background:linear-gradient(150deg,var(--red) 0%, var(--red-dark) 100%); color:#fff; border-color:var(--red); }
   .form-card.accent h3,.form-card.accent .eyebrow{ color:#fff; }
-  .form-card.accent .lead{ color:rgba(255,255,255,.9); }
   .form-card .eyebrow{ margin-bottom:.5rem; }
   .form-card h3{ font-size:1.7rem; margin-bottom:.4rem; }
   .form-card .sub{ margin-bottom:1.6rem; font-size:.98rem; }
-  .form-card.accent .sub{ color:rgba(255,255,255,.9); }
+  .form-card.accent .sub{ color:rgba(255,255,255,.92); }
 
   .field{ margin-bottom:1rem; }
   .field label{ display:block; font-family:var(--font-head); font-weight:600; font-size:.9rem; margin-bottom:.35rem; }
-  .field .req{ color:var(--red); }
-  .form-card.accent .field .req{ color:#fff; }
-  .field input,.field select,.field textarea{
-    width:100%; font-family:var(--font-body); font-size:1rem; color:var(--ink);
-    padding:.85rem 1rem; border:1.5px solid var(--line); border-radius:var(--r-sm);
-    background:#fff; transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
-  }
+  .field .req{ color:var(--red); } .form-card.accent .field .req{ color:#fff; }
+  .field input,.field select,.field textarea{ width:100%; font-family:var(--font-body); font-size:1rem; color:var(--ink); padding:.85rem 1rem; border:1.5px solid var(--line); border-radius:var(--r-sm); background:#fff; transition:border-color .18s var(--ease), box-shadow .18s var(--ease); }
   .field textarea{ min-height:130px; resize:vertical; }
-  .field input:focus,.field select:focus,.field textarea:focus{
-    outline:none; border-color:var(--red); box-shadow:0 0 0 4px var(--red-soft);
-  }
-  .field .err{ color:#B00020; font-size:.82rem; margin-top:.3rem; display:none; }
-  .field.invalid input,.field.invalid select,.field.invalid textarea{ border-color:#B00020; }
+  .field input:focus,.field select:focus,.field textarea:focus{ outline:none; border-color:var(--navy); box-shadow:0 0 0 4px var(--navy-soft); }
+  .form-card.accent .field input:focus,.form-card.accent .field textarea:focus,.form-card.accent .field select:focus{ border-color:#fff; box-shadow:0 0 0 4px rgba(255,255,255,.35); }
+  .field .err{ color:#8A0015; font-size:.82rem; margin-top:.3rem; display:none; font-weight:600; }
+  .form-card.accent .field .err{ color:#fff; }
+  .field.invalid input,.field.invalid select,.field.invalid textarea{ border-color:#8A0015; }
+  .form-card.accent .field.invalid input,.form-card.accent .field.invalid textarea{ border-color:#fff; }
   .field.invalid .err{ display:block; }
   .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
   .form-row-btn{ margin-top:.5rem; }
-  .form-card.accent .btn{ --_bg:#fff; --_fg:var(--red); border-color:#fff; }
+  .form-card.accent .btn{ --_bg:#fff; --_fg:var(--red); --_bd:#fff; }
   .form-card.accent .btn:hover{ background:var(--red-soft); border-color:var(--red-soft); color:var(--red-dark); }
-  .form-msg{ display:none; margin-top:1rem; padding:.9rem 1.1rem; border-radius:var(--r-sm); font-size:.95rem; font-weight:500; }
+  .form-msg{ display:none; margin-top:1rem; padding:.9rem 1.1rem; border-radius:var(--r-sm); font-size:.95rem; font-weight:600; }
   .form-msg.ok{ display:block; background:#E7F6EC; color:#1E6B3A; border:1px solid #B7E3C4; }
-  .form-msg.bad{ display:block; background:#FDEBEC; color:#B00020; border:1px solid #F3C2C6; }
-  .form-card.accent .form-msg.ok{ background:#fff; color:#1E6B3A; }
-  .form-card.accent .form-msg.bad{ background:#fff; color:#B00020; }
-  .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; } /* honeypot */
+  .form-msg.bad{ display:block; background:#FDEBEC; color:#8A0015; border:1px solid #F3C2C6; }
+  .form-card.accent .form-msg{ background:#fff; }
+  .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
   .btn[aria-busy="true"]{ opacity:.75; pointer-events:none; }
   .btn .spin{ width:1em; height:1em; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin .7s linear infinite; display:none; }
   .btn[aria-busy="true"] .spin{ display:inline-block; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
+  .field .hint{ font-size:.78rem; color:var(--muted); margin-top:.3rem; }
+  .form-card.accent .field .hint{ color:rgba(255,255,255,.8); }
 
-  /* ===========================================================
-     FINAL CTA
-     =========================================================== */
+  /* ====================== FINAL CTA ====================== */
   .cta-band{ text-align:center; }
-  .cta-inner{
-    background:linear-gradient(135deg,var(--red) 0%, var(--red-dark) 100%);
-    color:#fff; border-radius:var(--r-lg); padding:clamp(40px,6vw,72px); box-shadow:var(--shadow-lg);
-    position:relative; overflow:hidden;
-  }
-  .cta-inner::after{ content:""; position:absolute; inset:0; background:radial-gradient(60% 120% at 100% 0,rgba(255,255,255,.16),transparent 60%); pointer-events:none; }
+  .cta-inner{ background:linear-gradient(135deg,var(--navy) 0%, var(--navy-dark) 100%); color:#fff; border-radius:var(--r-lg); padding:clamp(40px,6vw,72px); box-shadow:var(--shadow-lg); position:relative; overflow:hidden; }
+  .cta-inner::after{ content:""; position:absolute; inset:0; background:radial-gradient(60% 120% at 100% 0,rgba(228,0,43,.22),transparent 60%); pointer-events:none; }
   .cta-inner h2{ color:#fff; font-size:clamp(1.9rem,4vw,3rem); }
-  .cta-inner p{ color:rgba(255,255,255,.92); max-width:52ch; margin-inline:auto; }
+  .cta-inner p{ color:rgba(255,255,255,.92); max-width:54ch; margin-inline:auto; }
   .cta-inner .hero-cta{ justify-content:center; margin-top:1.6rem; }
 
-  /* ===========================================================
-     FOOTER
-     =========================================================== */
-  .cfa-footer{ background:var(--navy); color:#cfd6df; padding-block:clamp(46px,6vw,72px) 2rem; }
-  .cfa-footer a{ color:#cfd6df; }
-  .cfa-footer a:hover{ color:#fff; }
+  /* ====================== FOOTER ====================== */
+  .cfa-footer{ background:var(--navy-dark); color:#c3d2d7; padding-block:clamp(46px,6vw,72px) 2rem; }
+  .cfa-footer a{ color:#c3d2d7; } .cfa-footer a:hover{ color:#fff; }
   .foot-grid{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:clamp(24px,3vw,40px); }
   .cfa-footer h4{ color:#fff; font-size:1rem; margin-bottom:1rem; }
   .cfa-footer ul{ list-style:none; padding:0; margin:0; display:grid; gap:.6rem; font-size:.95rem; }
-  .foot-brand p{ color:#9aa6b4; font-size:.94rem; max-width:34ch; }
-  .foot-logo{ font-family:var(--font-head); font-weight:800; font-size:1.3rem; color:#fff; margin-bottom:1rem; display:inline-flex; gap:.4rem; }
-  .foot-logo b{ color:#ff6b81; }
-  .foot-bottom{ border-top:1px solid rgba(255,255,255,.12); margin-top:clamp(30px,4vw,48px); padding-top:1.6rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.86rem; color:#9aa6b4; }
-  .foot-bottom a{ color:#9aa6b4; }
+  .foot-logo-chip{ display:inline-flex; background:#fff; border-radius:14px; padding:.7rem 1rem; margin-bottom:1rem; }
+  .foot-logo-chip img{ height:40px; }
+  .foot-logo-chip .fallback{ font-family:var(--font-head); font-weight:800; font-size:1.2rem; color:var(--navy); } .foot-logo-chip .fallback b{ color:var(--red); }
+  .foot-brand p{ color:#93a8ae; font-size:.94rem; max-width:36ch; }
+  .foot-bottom{ border-top:1px solid rgba(255,255,255,.12); margin-top:clamp(30px,4vw,48px); padding-top:1.6rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.86rem; color:#93a8ae; }
+  .foot-bottom a{ color:#93a8ae; }
 
-  /* ===========================================================
-     SCROLL REVEAL
-     =========================================================== */
+  /* ====================== REVEAL ====================== */
   .reveal{ opacity:0; transform:translateY(24px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
   .reveal.in{ opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
 
-  /* ===========================================================
-     MOBILE NAV PANEL
-     =========================================================== */
-  .cfa-mobile{
-    position:fixed; inset:78px 0 auto 0; background:var(--cream); border-bottom:1px solid var(--line);
-    box-shadow:var(--shadow-md); transform:translateY(-140%); transition:transform .32s var(--ease);
-    z-index:55; padding:1.2rem clamp(20px,5vw,40px) 1.6rem;
-  }
+  /* ====================== MOBILE NAV ====================== */
+  .cfa-mobile{ position:fixed; inset:80px 0 auto 0; background:var(--cream); border-bottom:1px solid var(--line); box-shadow:var(--shadow-md); transform:translateY(-140%); transition:transform .32s var(--ease); z-index:55; padding:1.2rem clamp(20px,5vw,40px) 1.6rem; }
   .cfa-mobile.open{ transform:translateY(0); }
   .cfa-mobile a{ display:block; font-family:var(--font-head); font-weight:700; font-size:1.1rem; padding:.85rem 0; border-bottom:1px solid var(--line); }
   .cfa-mobile .m-actions{ display:flex; gap:.8rem; margin-top:1.2rem; }
   .cfa-mobile .m-actions .btn{ flex:1; }
 
-  /* ===========================================================
-     RESPONSIVE
-     =========================================================== */
+  /* ====================== RESPONSIVE ====================== */
+  @media (max-width: 1000px){ .pilot-steps{ grid-template-columns:repeat(3,1fr); } }
   @media (max-width: 960px){
-    .hero-grid{ grid-template-columns:1fr; }
-    .hero-visual{ max-width:520px; margin-inline:auto; }
+    .hero-grid{ grid-template-columns:1fr; } .hero-visual{ max-width:520px; margin-inline:auto; }
     .float-card.fc1{ left:0; } .float-card.fc2{ right:0; }
-    .cards{ grid-template-columns:repeat(2,1fr); }
-    .steps{ grid-template-columns:1fr; gap:1.6rem; }
+    .cards{ grid-template-columns:1fr; } .phases{ grid-template-columns:1fr; }
     .stats-grid{ grid-template-columns:repeat(2,1fr); gap:2rem 1rem; }
-    .split{ grid-template-columns:1fr; }
-    .split.reverse .split-media{ order:0; }
-    .forms-grid{ grid-template-columns:1fr; }
-    .foot-grid{ grid-template-columns:1fr 1fr; }
-    .cfa-navlinks, .cfa-actions{ display:none; }
-    .cfa-burger{ display:block; }
+    .split{ grid-template-columns:1fr; } .video-grid{ grid-template-columns:1fr; }
+    .forms-grid{ grid-template-columns:1fr; } .foot-grid{ grid-template-columns:1fr 1fr; }
+    .incl-list{ grid-template-columns:1fr; }
+    .cfa-navlinks, .cfa-actions{ display:none; } .cfa-burger{ display:block; }
   }
-  @media (max-width: 560px){
-    .cards{ grid-template-columns:1fr; }
-    .two-col{ grid-template-columns:1fr; }
-    .foot-grid{ grid-template-columns:1fr; }
-    .hero-cta .btn{ width:100%; }
-    .trust-row{ gap:.8rem 1.4rem; }
+  @media (max-width: 620px){
+    .pilot-steps{ grid-template-columns:1fr 1fr; }
+    .two-col{ grid-template-columns:1fr; } .foot-grid{ grid-template-columns:1fr; }
+    .hero-cta .btn{ width:100%; } .trust-row{ gap:.8rem 1.4rem; }
   }
 </style>
 </head>
@@ -413,50 +328,42 @@
 
   <!-- ===================== TOP BAR ===================== -->
   <div class="cfa-topbar">
-    A <strong>Circle&nbsp;K Supply&nbsp;Chain Solutions</strong> company &nbsp;·&nbsp; In partnership with <strong>Chick-fil-A</strong>
+    Pilot Cohort 1 kicks off <strong>July&nbsp;2026</strong> — a second cohort of 100 restaurants follows in January&nbsp;2027. <a href="#interest">Express your interest →</a>
   </div>
 
   <!-- ===================== HEADER ===================== -->
   <header class="cfa-header" id="cfaHeader">
     <div class="cfa-wrap">
       <nav class="cfa-nav" aria-label="Primary">
-        <a class="cfa-logo" href="#top" aria-label="CFA LEAN365 home">
-          <!-- Main logo. If it fails to load, the text fallback shows. -->
+        <a class="cfa-logo" href="#top" aria-label="Chick-fil-A LEAN365 home">
           <img src="https://cfalean365.com/wp-content/uploads/2025/12/Chick-fil-A-LEAN365-Logo.png"
                alt="Chick-fil-A LEAN365"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
           <span class="fallback" style="display:none">CFA&nbsp;<b>LEAN365</b></span>
         </a>
-
         <div class="cfa-navlinks">
-          <a href="#solutions">Solutions</a>
-          <a href="#how">How&nbsp;It&nbsp;Works</a>
           <a href="#program">The Program</a>
+          <a href="#how">How the Pilot Works</a>
+          <a href="#included">What's Included</a>
           <a href="#support">Support</a>
         </div>
-
         <div class="cfa-actions">
-          <!-- CONFIG: login link is set from window.CFA_CONFIG.loginUrl via JS -->
-          <a class="cfa-login" data-login href="#" >Member Login</a>
-          <a class="btn" href="#join">Join the Pilot</a>
+          <a class="cfa-login" data-login href="#">Member Login</a>
+          <a class="btn" href="#interest">Express Interest</a>
         </div>
-
-        <button class="cfa-burger" id="cfaBurger" aria-label="Open menu" aria-expanded="false" aria-controls="cfaMobile">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="cfa-burger" id="cfaBurger" aria-label="Open menu" aria-expanded="false" aria-controls="cfaMobile"><span></span><span></span><span></span></button>
       </nav>
     </div>
   </header>
 
-  <!-- Mobile nav -->
   <div class="cfa-mobile" id="cfaMobile">
-    <a href="#solutions">Solutions</a>
-    <a href="#how">How It Works</a>
     <a href="#program">The Program</a>
+    <a href="#how">How the Pilot Works</a>
+    <a href="#included">What's Included</a>
     <a href="#support">Support</a>
     <div class="m-actions">
       <a class="btn btn--ghost" data-login href="#">Login</a>
-      <a class="btn" href="#join">Join the Pilot</a>
+      <a class="btn" href="#interest">Express Interest</a>
     </div>
   </div>
 
@@ -468,41 +375,37 @@
       <div class="hero-grid">
         <div class="hero-copy reveal">
           <div class="hero-badges">
-            <span class="pill-badge"><span class="dot"></span> Lean, built for Chick-fil-A</span>
-            <span class="pill-badge">Powered by Circle&nbsp;K Supply&nbsp;Chain Solutions</span>
+            <span class="pill-badge"><span class="dot"></span> In partnership with Chick-fil-A</span>
+            <span class="pill-badge">A Circle&nbsp;K Supply&nbsp;Chain Solutions company</span>
           </div>
-          <h1 id="heroTitle">Lean that works the way your <span class="hl">restaurant</span> works.</h1>
-          <p class="lead">CFA LEAN365 gives Chick-fil-A Operators and their teams practical Lean training, hands-on coaching and simple tools — so every shift runs smoother, waste goes down, and care for people and guests goes up.</p>
+          <span class="eyebrow">LEAN365 Essentials</span>
+          <h1 id="heroTitle">Create capacity. <span class="hl">Transform</span> your team.</h1>
+          <p class="lead">LEAN365 Essentials is a step-by-step plan that helps Chick-fil-A teams create capacity through transformational tools that drive results — building a continuous improvement culture that lasts in your restaurant.</p>
           <div class="hero-cta">
-            <a class="btn btn--lg" href="#join">Join the Pilot Interest List
+            <a class="btn btn--lg" href="#interest">Express Interest
               <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="btn btn--ghost btn--lg" href="#how">See How It Works</a>
+            <a class="btn btn--ghost btn--lg" href="#program">Explore the Program</a>
           </div>
-          <div class="hero-note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            Already a member? <a data-login href="#" style="color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px;">Log in to the learning center →</a>
-          </div>
+          <p class="hero-note">Already part of LEAN365? <a data-login href="#">Log in to the learning portal →</a></p>
         </div>
 
-        <!-- IMAGE SLOT: replace .placeholder with <img src="…" alt="…"> -->
+        <!-- IMAGE SLOT: replace .placeholder with a warm photo of a CFA team member -->
         <div class="hero-visual reveal">
           <div class="frame">
             <div class="placeholder">
-              <div class="mark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg>
-              </div>
+              <div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M12 3v2M21 12h-2"/></svg></div>
               <strong style="color:var(--ink)">Add your hero photo here</strong><br />
-              <small>Recommended: a warm, real photo of a CFA team at work (≈1200×1020).</small>
+              <small>A warm, real photo of a Chick-fil-A team member (≈1200×1020).</small>
             </div>
           </div>
           <div class="float-card fc1">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span>
-            <span><span class="t">-31%</span><span class="s">avg. waste reduced</span></span>
+            <span class="ic red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+            <span><span class="t">70%</span><span class="s">team retention rate</span></span>
           </div>
           <div class="float-card fc2">
-            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></span>
-            <span><span class="t">1,200+</span><span class="s">team members trained</span></span>
+            <span class="ic navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <span><span class="t">20-week</span><span class="s">guided program</span></span>
           </div>
         </div>
       </div>
@@ -513,214 +416,222 @@
   <div class="trust">
     <div class="cfa-wrap">
       <div class="trust-row reveal">
-        <span class="label">Trusted across the Chick-fil-A network</span>
-        <span class="name">Circle&nbsp;K Supply&nbsp;Chain</span>
+        <span class="label">A trusted partnership</span>
         <span class="name">Chick-fil-A</span>
-        <span class="name">CFA&nbsp;LEAN365</span>
+        <span class="name">LEAN365</span>
+        <span class="name">Circle&nbsp;K Supply&nbsp;Chain</span>
+        <span class="name">Point&nbsp;University</span>
       </div>
     </div>
   </div>
 
-  <!-- ===================== VALUE CARDS ===================== -->
-  <section class="cfa-section" id="solutions" aria-labelledby="solTitle">
+  <!-- ===================== ENGAGE / RETAIN / REWARD ===================== -->
+  <section class="cfa-section" id="why" aria-labelledby="whyTitle">
     <div class="cfa-wrap">
       <div class="center reveal">
-        <span class="eyebrow">What we do</span>
-        <h2 id="solTitle">Lean solutions made for the way you operate</h2>
-        <p class="lead">No jargon, no theory for theory's sake. Just the right tools and coaching to help your restaurant run cleaner, faster and calmer — every single day.</p>
+        <span class="eyebrow navy">Why LEAN365</span>
+        <h2 id="whyTitle">Engage. Retain. Reward.</h2>
+        <p class="lead">A practical program built for the way restaurants really run — energizing Team Members, keeping them longer, and rewarding their growth.</p>
       </div>
       <div class="cards">
         <article class="card reveal">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-          <h3>Practical Lean Training</h3>
-          <p>Bite-sized, role-based lessons your team actually finishes — delivered through our online learning center and built around real restaurant moments.</p>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></span>
+          <h3>Engage</h3>
+          <p>Engage and energize Team Members with video-based tutorials, high-energy activities, and creative challenges that make learning stick.</p>
         </article>
         <article class="card reveal">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></span>
-          <h3>Hands-On Coaching</h3>
-          <p>Experienced Lean coaches partner with your leaders to turn learning into daily habits — problem-solving, standard work and continuous improvement.</p>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+          <h3>Retain</h3>
+          <p>Team Members who participate in LEAN365 Essentials are more likely to stay — with a <span class="kpi">70% retention rate</span> among participants.</p>
         </article>
         <article class="card reveal">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
-          <h3>Simple, Ready-to-Use Tools</h3>
-          <p>Checklists, boards and templates designed for a busy kitchen and front counter — no consultants required to keep them running.</p>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></span>
+          <h3>Reward</h3>
+          <p>Team Members can earn College Credit for their participation as part of our partnership with <span class="kpi">Point University</span>.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ===================== HOW IT WORKS ===================== -->
-  <section class="cfa-section how" id="how" aria-labelledby="howTitle">
+  <!-- ===================== PROGRAM PHASES ===================== -->
+  <section class="cfa-section program" id="program" aria-labelledby="progTitle">
     <div class="cfa-wrap">
       <div class="center reveal">
-        <span class="eyebrow">How it works</span>
-        <h2 id="howTitle">Up and running in three simple steps</h2>
-        <p class="lead">A guided path from first login to lasting results — supported every step of the way.</p>
+        <span class="eyebrow">The program at a glance</span>
+        <h2 id="progTitle">Three phases that build Lean capability that lasts</h2>
+        <p class="lead">A guided, 20-week journey — from developing yourself, to developing your team, to embedding continuous improvement into daily restaurant life.</p>
       </div>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="num"></div>
-          <h3>Join &amp; get set up</h3>
-          <p>Add your interest below. We'll onboard your restaurant, create team logins and tailor a learning path to your goals.</p>
+      <div class="phases">
+        <div class="phase reveal">
+          <div class="ptop"><span class="pnum">Phase 1</span><span class="weeks">Weeks 1–8</span></div>
+          <h3>Develop Self</h3>
+          <p>The Lean Leader learns Lean tools and applies them to their own restaurant's performance.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Apply Lean tools and data to identify and eliminate waste</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Prioritize and execute high-impact improvement opportunities</li>
+          </ul>
         </div>
-        <div class="step reveal">
-          <div class="num"></div>
-          <h3>Learn &amp; practice</h3>
-          <p>Your team works through Lean lessons in the online learning center, then applies them on the floor with coach support.</p>
+        <div class="phase reveal">
+          <div class="ptop"><span class="pnum">Phase 2</span><span class="weeks">Weeks 9–20</span></div>
+          <h3>Develop Others</h3>
+          <p>The Lean Leader coaches their team and runs structured improvement using LEAN365.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Inspire team engagement and commitment to continuous improvement</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Lead change and leverage resources to sustain results</li>
+          </ul>
         </div>
-        <div class="step reveal">
-          <div class="num"></div>
-          <h3>Improve &amp; sustain</h3>
-          <p>Track wins, build daily habits and keep improving — with tools and check-ins that make progress stick.</p>
+        <div class="phase reveal">
+          <div class="ptop"><span class="pnum">Phase 3</span><span class="weeks">Ongoing</span></div>
+          <h3>Lean Culture &amp; Value</h3>
+          <p>Lean becomes part of how the restaurant runs: sustained, recognized, and continuously improving.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reward, recognize and celebrate Lean champions and behaviors</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Model and champion Lean leadership through consistent example</li>
+          </ul>
         </div>
       </div>
-      <div class="how-cta reveal">
-        <a class="btn btn--lg" href="#join">Start with the Pilot Interest List</a>
-      </div>
+      <p class="program-note">Target program kickoff: July 22, 2026</p>
     </div>
   </section>
 
   <!-- ===================== STATS ===================== -->
-  <section class="cfa-section" aria-label="Impact by the numbers">
+  <section class="cfa-section" aria-label="Program at a glance">
     <div class="cfa-wrap">
       <div class="stats-band reveal">
         <div class="stats-grid">
-          <div class="stat"><div class="n" data-count="1200"><span class="plus">+</span></div><div class="l">Team members trained</div></div>
-          <div class="stat"><div class="n" data-count="31" data-suffix="%">%</div><div class="l">Avg. waste reduced</div></div>
-          <div class="stat"><div class="n" data-count="40" data-suffix="+">+</div><div class="l">Restaurants supported</div></div>
-          <div class="stat"><div class="n" data-count="365" data-suffix="">365</div><div class="l">Days of continuous improvement</div></div>
+          <div class="stat"><div class="n" data-count="70" data-suffix="%">70%</div><div class="l">Team retention rate</div></div>
+          <div class="stat"><div class="n" data-count="20" data-suffix="">20</div><div class="l">Weeks of guided delivery</div></div>
+          <div class="stat"><div class="n" data-count="3" data-suffix="">3</div><div class="l">Phases from self to culture</div></div>
+          <div class="stat"><div class="n" data-count="100" data-suffix="+">100+</div><div class="l">Restaurants in Cohort 2 (Jan 2027)</div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== PROGRAM / FEATURE SPLIT ===================== -->
-  <section class="cfa-section" id="program" aria-labelledby="progTitle">
+  <!-- ===================== HOW THE PILOT WORKS ===================== -->
+  <section class="cfa-section" id="how" aria-labelledby="howTitle">
+    <div class="cfa-wrap">
+      <div class="center reveal">
+        <span class="eyebrow navy">How the pilot works</span>
+        <h2 id="howTitle">From first interest to program kickoff</h2>
+        <p class="lead">A simple, supported path — six steps from expressing interest to launching with your cohort.</p>
+      </div>
+      <div class="pilot-steps">
+        <div class="pstep reveal"><div class="circle">1</div><h4>Express Interest</h4><p>Request to join the pilot, or connect through CFA outreach.</p></div>
+        <div class="pstep reveal"><div class="circle">2</div><h4>Get Selected</h4><p>Your restaurant is accepted and expectations are confirmed.</p></div>
+        <div class="pstep reveal"><div class="circle">3</div><h4>Name a Lean Leader</h4><p>Choose a team member to lead the work.</p></div>
+        <div class="pstep reveal"><div class="circle">4</div><h4>Get Set Up</h4><p>Training vendor matched; tools and access prepared.</p></div>
+        <div class="pstep reveal"><div class="circle">5</div><h4>Prepare to Launch</h4><p>Cohort confirmed; welcome and logistics shared.</p></div>
+        <div class="pstep reveal"><div class="circle">6</div><h4>Program Kicks Off</h4><p>Your Lean Leader begins the program with the cohort.</p></div>
+      </div>
+      <p class="pilot-note">Throughout the process, CFA and the training team provide support — Operators are never on their own.</p>
+      <div class="pilot-cta"><a class="btn btn--lg" href="#interest">Start with Step 1 — Express Interest</a></div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S INCLUDED ===================== -->
+  <section class="cfa-section" id="included" aria-labelledby="inclTitle" style="background:#fff">
     <div class="cfa-wrap">
       <div class="split">
         <div class="split-media reveal">
           <div class="frame">
-            <!-- IMAGE SLOT -->
+            <!-- IMAGE SLOT: LMS dashboard / lesson screenshot or LEAN365 kit photo -->
             <div class="placeholder">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              <div style="margin-top:.8rem"><strong style="color:var(--ink)">Learning center screenshot</strong><br /><small>Show the LMS dashboard or a lesson.</small></div>
+              <div style="margin-top:.8rem"><strong style="color:var(--ink)">Learning portal screenshot</strong><br /><small>Show the LMS dashboard, a lesson, or the LEAN365 kit.</small></div>
             </div>
           </div>
         </div>
         <div class="split-copy reveal">
-          <span class="eyebrow">The program</span>
-          <h2 id="progTitle">Everything your team needs, in one learning center</h2>
-          <p>CFA LEAN365 brings training, coaching and tools together in a single, easy-to-use place — so learning fits naturally into the flow of the day.</p>
-          <ul class="checklist">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Role-based Lean courses for every position</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Progress tracking and certificates</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Downloadable tools, boards and checklists</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Coach support when you need a hand</li>
+          <span class="eyebrow">What's included</span>
+          <h2 id="inclTitle">Everything you need for a transformational LEAN journey</h2>
+          <p>The program includes both digital and physical assets to engage Team Members. Every Team Member gets access to an online learning portal, and every restaurant receives the physical assets needed to launch.</p>
+          <ul class="incl-list">
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></span><span><span class="t">Video Tutorials</span><span class="s">LEAN concepts with real restaurant examples.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h6"/></svg></span><span><span class="t">Challenge Cards</span><span class="s">Done solo or as a team within each unit.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg></span><span><span class="t">Games &amp; Activities</span><span class="s">Reinforce content in a fun, engaging way.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span><span class="t">Resources &amp; Tools</span><span class="s">Apply LEAN concepts immediately in the restaurant.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span><span class="t">Leader Guide</span><span class="s">Equips LEAN Leaders to facilitate the journey.</span></span></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span><span><span class="t">Promotional Materials</span><span class="s">Posters, prizes and giveaways to energize teams.</span></span></li>
           </ul>
-          <a class="btn" data-login href="#">Enter the Learning Center</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VIDEO ===================== -->
+  <section class="cfa-section video-sec" aria-labelledby="vidTitle">
+    <div class="cfa-wrap">
+      <div class="video-grid">
+        <div class="reveal">
+          <span class="eyebrow navy">See the impact</span>
+          <h2 id="vidTitle">What can LEAN365 Essentials do?</h2>
+          <p class="lead">Hear directly from Operators and Team Members who have experienced the impact of LEAN365 Essentials — and the difference it's made in their restaurants.</p>
+          <a class="btn btn--navy" href="#interest">Bring LEAN365 to your restaurant</a>
+        </div>
+        <!-- VIDEO EMBED: replace this .video-frame with your <iframe> (YouTube/Vimeo) -->
+        <div class="video-frame reveal" role="img" aria-label="Program overview video placeholder">
+          <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          <span class="cap">Add your video URL here</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================== FORMS ===================== -->
-  <section class="cfa-section forms" id="join" aria-labelledby="formsTitle">
+  <section class="cfa-section forms" id="interest" aria-labelledby="formsTitle">
     <div class="cfa-wrap">
       <div class="center reveal">
-        <span class="eyebrow">Get started</span>
+        <span class="eyebrow">Get involved</span>
         <h2 id="formsTitle">Join the pilot — or reach out to our team</h2>
-        <p class="lead">Tell us a little about your restaurant and we'll be in touch. Prefer to talk first? Our support team is here to help.</p>
+        <p class="lead">Interested restaurants can share their information to learn more or be considered for a future cohort.</p>
+      </div>
+
+      <div class="cohort-callout reveal">
+        <strong>About the pilot:</strong> Chick-fil-A's first LEAN365 pilot cohort begins in July 2026, helping participating restaurants strengthen team habits and improve operational performance through guided training. A second pilot cohort of 100 restaurants is planned for January 2027. Enter your information below to learn more or be considered for a future cohort.
       </div>
 
       <div class="forms-grid">
-        <!-- ============ JOIN PILOT INTEREST — GravityForms id 36 ============ -->
+        <!-- ============ EXPRESS INTEREST — GravityForms id 36 ============ -->
         <div class="form-card accent reveal">
           <span class="eyebrow">Pilot interest</span>
-          <h3>Join the Pilot Interest List</h3>
-          <p class="sub">Be first in line as we expand CFA LEAN365 to more restaurants.</p>
+          <h3>Express Interest in the Pilot</h3>
+          <p class="sub">Tell us about your restaurant and we'll be in touch about current and future cohorts.</p>
           <form class="cfa-form" data-form-id="36" novalidate>
             <div class="two-col">
-              <div class="field">
-                <label>First name <span class="req">*</span></label>
-                <input type="text" name="first_name" autocomplete="given-name" required />
-                <div class="err">Please enter your first name.</div>
-              </div>
-              <div class="field">
-                <label>Last name <span class="req">*</span></label>
-                <input type="text" name="last_name" autocomplete="family-name" required />
-                <div class="err">Please enter your last name.</div>
-              </div>
+              <div class="field"><label>First name <span class="req">*</span></label><input type="text" name="first_name" autocomplete="given-name" required /><div class="err">Please enter your first name.</div></div>
+              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" name="last_name" autocomplete="family-name" required /><div class="err">Please enter your last name.</div></div>
             </div>
-            <div class="field">
-              <label>Email <span class="req">*</span></label>
-              <input type="email" name="email" autocomplete="email" required />
-              <div class="err">Please enter a valid email address.</div>
-            </div>
+            <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" autocomplete="email" required /><div class="err">Please enter a valid email address.</div></div>
             <div class="two-col">
-              <div class="field">
-                <label>Restaurant / Location</label>
-                <input type="text" name="restaurant" autocomplete="organization" />
-                <div class="err">Please check this field.</div>
-              </div>
-              <div class="field">
-                <label>Role</label>
-                <select name="role">
-                  <option value="">Select…</option>
-                  <option>Operator</option>
-                  <option>Director / Leader</option>
-                  <option>Team Member</option>
-                  <option>Other</option>
-                </select>
+              <div class="field"><label>Restaurant / Store #</label><input type="text" name="restaurant" autocomplete="organization" /><div class="err">Please check this field.</div></div>
+              <div class="field"><label>Your role</label>
+                <select name="role"><option value="">Select…</option><option>Operator</option><option>Director / Leader</option><option>Team Member</option><option>Other</option></select>
                 <div class="err">Please select a role.</div>
               </div>
             </div>
-            <div class="field">
-              <label>What are you hoping to improve?</label>
-              <textarea name="message" rows="3"></textarea>
-            </div>
-            <!-- honeypot: bots fill this; humans never see it -->
+            <div class="field"><label>What are you hoping to improve?</label><textarea name="message" rows="3"></textarea></div>
             <div class="hp" aria-hidden="true"><label>Leave this blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
-            <div class="form-row-btn">
-              <button class="btn btn--lg" type="submit">
-                <span class="spin"></span><span class="label">Join the Pilot</span>
-              </button>
-            </div>
+            <div class="form-row-btn"><button class="btn btn--lg" type="submit"><span class="spin"></span><span class="label">Express Interest</span></button></div>
             <div class="form-msg" role="status" aria-live="polite"></div>
           </form>
         </div>
 
         <!-- ============ SUPPORT — GravityForms id 37 ============ -->
         <div class="form-card reveal" id="support">
-          <span class="eyebrow">Support</span>
-          <h3>Need a hand? Contact support</h3>
-          <p class="sub">Questions about your account, training or tools — we'll get back to you quickly.</p>
+          <span class="eyebrow navy">Support</span>
+          <h3>Need Help? Our Pleasure!</h3>
+          <p class="sub">For questions about LEAN365, your boxes or physical materials, or about this website, let us know how we can help. Someone from the LEAN Team will reach out within 48 hours.</p>
           <form class="cfa-form" data-form-id="37" novalidate>
-            <div class="field">
-              <label>Full name <span class="req">*</span></label>
-              <input type="text" name="name" autocomplete="name" required />
-              <div class="err">Please enter your name.</div>
+            <div class="two-col">
+              <div class="field"><label>First name <span class="req">*</span></label><input type="text" name="first_name" autocomplete="given-name" required /><div class="err">Please enter your first name.</div></div>
+              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" name="last_name" autocomplete="family-name" required /><div class="err">Please enter your last name.</div></div>
             </div>
-            <div class="field">
-              <label>Email <span class="req">*</span></label>
-              <input type="email" name="email" autocomplete="email" required />
-              <div class="err">Please enter a valid email address.</div>
-            </div>
-            <div class="field">
-              <label>Subject</label>
-              <input type="text" name="subject" />
-              <div class="err">Please check this field.</div>
-            </div>
-            <div class="field">
-              <label>How can we help? <span class="req">*</span></label>
-              <textarea name="message" required></textarea>
-              <div class="err">Please tell us how we can help.</div>
-            </div>
+            <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" autocomplete="email" required /><div class="err">Please enter a valid email address.</div></div>
+            <div class="field"><label>Subject <span class="req">*</span></label><input type="text" name="subject" required /><div class="err">Please add a subject.</div></div>
+            <div class="field"><label>Message <span class="req">*</span></label><textarea name="message" maxlength="600" required></textarea><div class="hint">Up to 600 characters.</div><div class="err">Please tell us how we can help.</div></div>
             <div class="hp" aria-hidden="true"><label>Leave this blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
-            <div class="form-row-btn">
-              <button class="btn btn--lg" type="submit">
-                <span class="spin"></span><span class="label">Send message</span>
-              </button>
-            </div>
+            <div class="form-row-btn"><button class="btn btn--lg btn--navy" type="submit"><span class="spin"></span><span class="label">Submit</span></button></div>
             <div class="form-msg" role="status" aria-live="polite"></div>
           </form>
         </div>
@@ -732,10 +643,10 @@
   <section class="cfa-section cta-band">
     <div class="cfa-wrap">
       <div class="cta-inner reveal">
-        <h2>Ready to make every shift a little better?</h2>
-        <p>Join the growing network of Chick-fil-A restaurants improving with CFA LEAN365.</p>
+        <h2>Ready to build a culture of continuous improvement?</h2>
+        <p>Join the growing network of Chick-fil-A restaurants transforming the way work gets done with LEAN365 Essentials.</p>
         <div class="hero-cta">
-          <a class="btn btn--light btn--lg" href="#join">Join the Pilot Interest List</a>
+          <a class="btn btn--light btn--lg" href="#interest">Express Interest</a>
           <a class="btn btn--lg" data-login href="#" style="background:transparent;border-color:#fff;color:#fff">Member Login</a>
         </div>
       </div>
@@ -747,36 +658,19 @@
     <div class="cfa-wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <span class="foot-logo">CFA&nbsp;<b>LEAN365</b></span>
-          <p>A Circle K Supply Chain Solutions company, in partnership with Chick-fil-A — delivering practical Lean to restaurants and their teams.</p>
+          <span class="foot-logo-chip">
+            <img src="https://cfalean365.com/wp-content/uploads/2025/12/Chick-fil-A-LEAN365-Logo.png" alt="Chick-fil-A LEAN365"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+            <span class="fallback" style="display:none">CFA&nbsp;<b>LEAN365</b></span>
+          </span>
+          <p>LEAN365, in partnership with Chick-fil-A and Circle K Supply Chain Solutions — helping teams create capacity and build a lasting culture of continuous improvement.</p>
         </div>
-        <div>
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="#solutions">Solutions</a></li>
-            <li><a href="#how">How It Works</a></li>
-            <li><a href="#program">The Program</a></li>
-            <li><a href="#join">Join the Pilot</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Members</h4>
-          <ul>
-            <li><a data-login href="#">Member Login</a></li>
-            <li><a data-login href="#">Learning Center</a></li>
-            <li><a href="#support">Support</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="#support">Contact Support</a></li>
-            <li><a href="mailto:info@cfalean365.com">info@cfalean365.com</a></li>
-          </ul>
-        </div>
+        <div><h4>Program</h4><ul><li><a href="#program">The Program</a></li><li><a href="#how">How the Pilot Works</a></li><li><a href="#included">What's Included</a></li><li><a href="#why">Why LEAN365</a></li></ul></div>
+        <div><h4>Members</h4><ul><li><a data-login href="#">Member Login</a></li><li><a data-login href="#">Learning Portal</a></li><li><a href="#interest">Express Interest</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><a href="#support">Contact Support</a></li><li><a href="mailto:info@cfalean365.com">info@cfalean365.com</a></li></ul></div>
       </div>
       <div class="foot-bottom">
-        <span>© <span id="cfaYear"></span> CFA LEAN365 · Circle K Supply Chain Solutions. All rights reserved.</span>
+        <span>© <span id="cfaYear"></span> LEAN365 · Circle K Supply Chain Solutions. All rights reserved.</span>
         <span><a href="#top">Back to top ↑</a></span>
       </div>
     </div>
@@ -786,76 +680,47 @@
 (function(){
   "use strict";
 
-  /* ============================================================
-     CONFIG — EDIT THESE TWO VALUES BEFORE GOING LIVE
-     ============================================================ */
+  /* ================= CONFIG — EDIT BEFORE GO-LIVE ================= */
   window.CFA_CONFIG = window.CFA_CONFIG || {
-    // Where "Login / Member Login / Learning Center" links point.
-    // Set to your real LMS login page (e.g. "/login/", "/wp-login.php",
-    // or the LMS URL). Logged-in visitors are redirected by your existing
-    // snippet, so this is the entry point for members.
-    loginUrl: "/wp-login.php",
-
-    // Path to the secure form handler (gf-proxy.php). Same-origin recommended.
-    // Example if you place the file at site root: "/gf-proxy.php"
-    // If you register it as a WordPress endpoint, use that URL instead.
-    formEndpoint: "/gf-proxy.php"
+    loginUrl:     "/wp-login.php",   // ← your real member/LMS login URL
+    formEndpoint: "/gf-proxy.php"     // ← path where gf-proxy.php is hosted
   };
 
-  /* ---- Apply login URL to all [data-login] links ---- */
-  document.querySelectorAll('[data-login]').forEach(function(a){
-    a.setAttribute('href', window.CFA_CONFIG.loginUrl);
-  });
+  document.querySelectorAll('[data-login]').forEach(function(a){ a.setAttribute('href', window.CFA_CONFIG.loginUrl); });
 
-  /* ---- Year ---- */
   var y = document.getElementById('cfaYear'); if (y) y.textContent = new Date().getFullYear();
 
-  /* ---- Sticky header shadow ---- */
   var header = document.getElementById('cfaHeader');
   var onScroll = function(){ if(header) header.classList.toggle('is-scrolled', window.scrollY > 8); };
   onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
 
-  /* ---- Mobile nav ---- */
-  var burger = document.getElementById('cfaBurger');
-  var mobile = document.getElementById('cfaMobile');
+  var burger = document.getElementById('cfaBurger'), mobile = document.getElementById('cfaMobile');
   function closeMenu(){ if(!burger||!mobile)return; burger.setAttribute('aria-expanded','false'); mobile.classList.remove('open'); }
   if (burger && mobile){
     burger.addEventListener('click', function(){
       var open = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!open));
-      mobile.classList.toggle('open', !open);
+      burger.setAttribute('aria-expanded', String(!open)); mobile.classList.toggle('open', !open);
     });
     mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
   }
 
-  /* ---- Scroll reveal ---- */
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var reveals = document.querySelectorAll('.reveal');
-  if (reduce || !('IntersectionObserver' in window)){
-    reveals.forEach(function(el){ el.classList.add('in'); });
-  } else {
+  if (reduce || !('IntersectionObserver' in window)){ reveals.forEach(function(el){ el.classList.add('in'); }); }
+  else {
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
     reveals.forEach(function(el){ io.observe(el); });
   }
 
-  /* ---- Count-up stats ---- */
   var counters = document.querySelectorAll('.n[data-count]');
   function animateCount(el){
     var target = parseFloat(el.getAttribute('data-count'));
     var suffix = el.getAttribute('data-suffix') || '';
-    var prefixEl = el.querySelector('.plus');
-    var prefix = prefixEl ? '' : '';
-    var start = 0, dur = 1400, t0 = null;
-    function frame(t){
-      if(!t0) t0 = t;
-      var p = Math.min((t - t0)/dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      var val = Math.round(target * eased);
-      el.textContent = val.toLocaleString() + suffix;
-      if (p < 1) requestAnimationFrame(frame);
-    }
+    var dur = 1400, t0 = null;
+    function frame(t){ if(!t0)t0=t; var p=Math.min((t-t0)/dur,1); var eased=1-Math.pow(1-p,3);
+      el.textContent = Math.round(target*eased).toLocaleString() + suffix; if(p<1) requestAnimationFrame(frame); }
     requestAnimationFrame(frame);
   }
   if (!reduce && 'IntersectionObserver' in window){
@@ -865,88 +730,53 @@
     counters.forEach(function(el){ cio.observe(el); });
   }
 
-  /* ============================================================
-     FORMS — secure submit via same-origin PHP proxy (gf-proxy.php)
-     The proxy holds the GravityForms REST keys server-side.
-     This page never sees any API credentials.
-     ============================================================ */
+  /* ================= FORMS — secure POST to gf-proxy.php ================= */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  function setFieldError(field, on){ field.classList.toggle('invalid', !!on); }
-
   function validate(form){
-    var ok = true;
+    var ok = true, firstBad = null;
     form.querySelectorAll('.field').forEach(function(field){
-      var input = field.querySelector('input,select,textarea');
-      if (!input) return;
-      var val = (input.value || '').trim();
-      var required = input.hasAttribute('required');
-      var bad = false;
+      var input = field.querySelector('input,select,textarea'); if(!input) return;
+      var val = (input.value||'').trim(), required = input.hasAttribute('required'), bad = false;
       if (required && !val) bad = true;
       if (input.type === 'email' && val && !EMAIL_RE.test(val)) bad = true;
-      setFieldError(field, bad);
-      if (bad && ok){ ok = false; input.focus(); }
-      else if (bad) { /* keep first-focus */ }
+      field.classList.toggle('invalid', bad);
+      if (bad && !firstBad) firstBad = input;
+      if (bad) ok = false;
     });
+    if (firstBad) firstBad.focus();
     return ok;
   }
-
-  function showMsg(form, type, text){
-    var box = form.querySelector('.form-msg');
-    if (!box) return;
-    box.className = 'form-msg ' + (type === 'ok' ? 'ok' : 'bad');
-    box.textContent = text;
-  }
-  function clearMsg(form){ var b = form.querySelector('.form-msg'); if(b){ b.className='form-msg'; b.textContent=''; } }
+  function showMsg(form,type,text){ var b=form.querySelector('.form-msg'); if(!b)return; b.className='form-msg '+(type==='ok'?'ok':'bad'); b.textContent=text; }
+  function clearMsg(form){ var b=form.querySelector('.form-msg'); if(b){ b.className='form-msg'; b.textContent=''; } }
 
   document.querySelectorAll('.cfa-form').forEach(function(form){
-    // live-clear errors as the user types
-    form.addEventListener('input', function(e){
-      var field = e.target.closest('.field'); if(field) field.classList.remove('invalid');
-    });
-
+    form.addEventListener('input', function(e){ var f=e.target.closest('.field'); if(f) f.classList.remove('invalid'); });
     form.addEventListener('submit', function(e){
-      e.preventDefault();
-      clearMsg(form);
-
-      // honeypot — silently succeed for bots
+      e.preventDefault(); clearMsg(form);
       var hp = form.querySelector('input[name="website"]');
       if (hp && hp.value){ showMsg(form,'ok','Thanks! We’ll be in touch.'); form.reset(); return; }
-
       if (!validate(form)){ showMsg(form,'bad','Please fix the highlighted fields.'); return; }
 
-      var btn = form.querySelector('button[type="submit"]');
-      var labelEl = btn ? btn.querySelector('.label') : null;
-      var oldLabel = labelEl ? labelEl.textContent : '';
-      if (btn){ btn.setAttribute('aria-busy','true'); if(labelEl) labelEl.textContent = 'Sending…'; }
+      var btn = form.querySelector('button[type="submit"]'), labelEl = btn && btn.querySelector('.label'),
+          oldLabel = labelEl ? labelEl.textContent : '';
+      if (btn){ btn.setAttribute('aria-busy','true'); if(labelEl) labelEl.textContent='Sending…'; }
 
       var payload = { form_id: form.getAttribute('data-form-id'), fields:{} };
-      form.querySelectorAll('input,select,textarea').forEach(function(el){
-        if (!el.name || el.name === 'website') return;
-        payload.fields[el.name] = el.value;
-      });
+      form.querySelectorAll('input,select,textarea').forEach(function(el){ if(!el.name || el.name==='website') return; payload.fields[el.name]=el.value; });
 
       fetch(window.CFA_CONFIG.formEndpoint, {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-        body: JSON.stringify(payload)
+        method:'POST', headers:{ 'Content-Type':'application/json','Accept':'application/json' }, body: JSON.stringify(payload)
       })
-      .then(function(r){ return r.json().catch(function(){ return { ok:false }; }).then(function(d){ return { status:r.status, data:d }; }); })
+      .then(function(r){ return r.json().catch(function(){ return {ok:false}; }).then(function(d){ return {status:r.status,data:d}; }); })
       .then(function(res){
-        if (res.status >= 200 && res.status < 300 && res.data && res.data.ok !== false){
-          showMsg(form,'ok', res.data.message || 'Thank you! Your submission was received — we’ll be in touch soon.');
-          form.reset();
+        if (res.status>=200 && res.status<300 && res.data && res.data.ok!==false){
+          showMsg(form,'ok', res.data.message || 'Thank you! Your submission was received — we’ll be in touch soon.'); form.reset();
         } else {
-          var m = (res.data && (res.data.message || res.data.error)) || 'Sorry, something went wrong. Please try again or email info@cfalean365.com.';
-          showMsg(form,'bad', m);
+          showMsg(form,'bad', (res.data && (res.data.message||res.data.error)) || 'Sorry, something went wrong. Please try again or email info@cfalean365.com.');
         }
       })
-      .catch(function(){
-        showMsg(form,'bad','We couldn’t reach the server. Please check your connection and try again.');
-      })
-      .finally(function(){
-        if (btn){ btn.removeAttribute('aria-busy'); if(labelEl) labelEl.textContent = oldLabel; }
-      });
+      .catch(function(){ showMsg(form,'bad','We couldn’t reach the server. Please check your connection and try again.'); })
+      .finally(function(){ if(btn){ btn.removeAttribute('aria-busy'); if(labelEl) labelEl.textContent=oldLabel; } });
     });
   });
 })();

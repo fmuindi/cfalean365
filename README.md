@@ -106,16 +106,23 @@ Also set **`ALLOWED_ORIGINS`** to your domain(s) at the top of the file.
 
 ---
 
-## ⚠️ Placeholder content — replace before launch
+## Content — what's real vs. what to add
 
-I could not reach the live site or your reference folder from this environment,
-so **all copy, stats and images are realistic placeholders**, not your approved
-content. Please swap in your real:
+The copy now reflects **your real content**, drawn from the current site and the
+Lean Leader Program deck:
 
-- Headline, subheadline and section copy
-- Stats (the `-31%`, `1,200+`, etc. are illustrative — search `data-count`)
-- Photos (search `IMAGE SLOT`)
-- Nav links / footer links and the login URL
-- Any legal / contact details in the footer
+- Hero, ENGAGE / RETAIN / REWARD (70% retention, Point University college credit)
+- The 3-phase / 20-week program (Develop Self → Develop Others → Lean Culture)
+- "How the Pilot Works" (6 steps; July 2026 kickoff; 100-store Jan 2027 cohort)
+- "What's Included" (6 items) and the "Need Help? Our Pleasure!" support copy
 
-Send me your documents (upload them here) and I'll fold the real content in.
+Internal-only material from the deck (risks, open questions, legal/onboarding
+steps) was **deliberately left off** the public page.
+
+**Still to add before launch:**
+
+- **Photos** — search `IMAGE SLOT` (hero photo + learning-portal/kit image).
+- **Video** — search `VIDEO EMBED` and paste your YouTube/Vimeo `<iframe>`.
+- **Login URL** — set `loginUrl` in `CFA_CONFIG`.
+- **Form field IDs** — verify `$FIELD_MAPS` in `gf-proxy.php` against forms 36 & 37.
+- Double-check stats and the Point University / cohort details are current.
