@@ -130,16 +130,29 @@ steps) was **deliberately left off** the public page.
 - **Form field IDs** — mapped in `gf-proxy.php`: Interest (36) Name `3`, Email `4`,
   Phone `23`, Message `32`; Support (37) Name `1`, Email `2`, Subject `4`, Message `3`.
 
+**Chick-fil-A store-address autocomplete — wired, no keys in the page:**
+
+Field `34` on the Interest form is a GF Address field driven by your existing
+"Chick-fil-A Autocomplete for Gravity Forms" Code Snippet. Because that snippet
+enqueues its JS site-wide and binds to any `.cfa-autocomplete` element, the
+custom input on this page uses the **same markup** (`.cfa-input-wrapper`,
+`input.cfa-autocomplete`, `ul.cfa-suggestions`, hidden `.cfa-place-id`) so the
+snippet's own autocomplete + nonce'd AJAX bind to it automatically — **no Google
+key lives in this page.** On submit, `gf-proxy.php` reuses the snippet's own
+`cfa_fetch_place_details()` to resolve the `place_id` into the address sub-inputs
+(`34.1` street / `34.3` city / `34.4` state / `34.5` zip), so **no key lives in
+the proxy either.** The user must still pick a store from the suggestions
+(validated client- and server-side), matching the native form's behavior.
+
+Requirement: the Code Snippet must stay active site-wide so its JS loads on the
+homepage. (It already is.)
+
 **Still open:**
 
-- **Store-address field ID** (Interest form) — I mapped it as `22` (a guess);
-  confirm the real ID in the GF editor and update `$FIELD_MAPS['36']['store_address']`.
-- **Store-address autocomplete** — your Google Places snippet targets the native
-  GF field, so it won't run on the custom input. To keep the CFA-restricted
-  autocomplete, either share the snippet + Google Maps API key so I can port it,
-  or we embed the native GF field just for that form. Until then it's a plain
-  text input (still submits fine).
-- Rotate the REST keys shared earlier.
+- Rotate the GravityForms REST keys shared earlier (the proxy prefers Mode A and
+  needs no keys; rotate them anyway since they were shared in chat).
+- The Google browser/server keys stay in your Code Snippet — keep them there,
+  never in this page.
 
 ## Design language
 

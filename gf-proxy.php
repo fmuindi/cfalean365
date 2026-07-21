@@ -47,12 +47,15 @@ const ALLOWED_ORIGINS = [
 $FIELD_MAPS = [
     // CFA Pilot Interest Form — form 36 (IDs confirmed from GF editor)
     '36' => [
-        'first_name'    => '3.3',   // Name (ID 3) → First
-        'last_name'     => '3.6',   // Name (ID 3) → Last
-        'email'         => '4',     // Email (ID 4)
-        'phone'         => '23',    // Phone (ID 23)
-        'store_address' => '22',    // Chick-fil-A Store Address — ⚠️ VERIFY THIS ID
-        'message'       => '32',    // "Any question or a message for us?" (ID 32)
+        'first_name' => '3.3',   // Name (ID 3) → First
+        'last_name'  => '3.6',   // Name (ID 3) → Last
+        'email'      => '4',     // Email (ID 4)
+        'phone'      => '23',    // Phone (ID 23)
+        'message'    => '32',    // "Any question or a message for us?" (ID 32)
+        // Chick-fil-A Store Address is field ID 34 (GF "Address" type). It is
+        // handled specially below: the Google place_id from the CFA autocomplete
+        // snippet is resolved into sub-inputs 34.1 (street) / 34.3 (city) /
+        // 34.4 (state) / 34.5 (zip), reusing the site's own cfa_fetch_place_details().
     ],
     // Support Contact Form — form 37 (IDs confirmed from GF editor)
     '37' => [
@@ -145,6 +148,12 @@ foreach ($map as $friendly => $gfId) {
     }
     $inputs['input_' . str_replace('.', '_', (string) $gfId)] = $val;
 }
+// Store address (form 36, field 34) for the REST fallback: pass the place_id
+// (the site's snippet resolves it on submit) and the typed text as the street line.
+if ($formId === '36') {
+    if (!empty($fields['store_place_id'])) $inputs['input_34_place_id'] = trim((string) $fields['store_place_id']);
+    if (!empty($fields['store_address']))  $inputs['input_34_1']       = trim((string) $fields['store_address']);
+}
 
 /* ===================== MODE A: WordPress + GFAPI ===================== */
 $wpLoad = null;
@@ -171,6 +180,30 @@ if ($wpLoad !== null) {
                 $values[(string) $gfId] = is_string($v) ? trim($v) : $v;
             }
         }
+
+        // Chick-fil-A Store Address (form 36, field 34). The custom autocomplete
+        // sets a Google place_id; resolve it into the GF Address sub-inputs by
+        // reusing the site's own snippet function — no extra API key needed here.
+        if ($formId === '36') {
+            $placeId = isset($fields['store_place_id']) ? trim((string) $fields['store_place_id']) : '';
+            if ($placeId !== '') {
+                // Satisfy the snippet's gform_validation if it runs during submit.
+                $_POST['input_34_place_id'] = $placeId;
+                if (function_exists('cfa_fetch_place_details')) {
+                    $d = cfa_fetch_place_details($placeId);
+                    if (is_array($d)) {
+                        $values['34.1'] = $d['address'] ?? '';
+                        $values['34.3'] = $d['city']    ?? '';
+                        $values['34.4'] = $d['state']   ?? '';
+                        $values['34.5'] = $d['zip']     ?? '';
+                    }
+                }
+            }
+            if (empty($values['34.1']) && !empty($fields['store_address'])) {
+                $values['34.1'] = trim((string) $fields['store_address']); // fallback: raw text
+            }
+        }
+
         $result = GFAPI::submit_form((int) $formId, $values);
 
         if (is_wp_error($result)) {

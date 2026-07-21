@@ -253,6 +253,13 @@
   .btn .spin{ width:1em; height:1em; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin .7s linear infinite; display:none; } .btn[aria-busy="true"] .spin{ display:inline-block; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
   @media (max-width:860px){ .forms-grid{ grid-template-columns:1fr; } }
+  /* Chick-fil-A store-address autocomplete (snippet-driven) — brand-match the dropdown */
+  .cfa-input-wrapper{ position:relative; }
+  .forms .cfa-suggestions{ border:1px solid var(--line); border-radius:0 0 var(--r-sm) var(--r-sm); box-shadow:var(--shadow-md); margin-top:2px; }
+  .forms .cfa-suggestion-item{ font-family:var(--font-body); color:var(--ink); }
+  .forms .cfa-suggestion-item:hover{ background:var(--red-soft); }
+  /* keep suggestion text readable inside the red accent card */
+  .form-card.accent .cfa-suggestions, .form-card.accent .cfa-suggestion-item{ color:var(--ink); }
 
   /* ====================== FINAL CTA ====================== */
   .cta-band{ text-align:center; }
@@ -559,7 +566,15 @@
               <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" autocomplete="email" required /><div class="err">Please enter a valid email address.</div></div>
               <div class="field"><label>Phone <span class="req">*</span></label><input type="tel" name="phone" autocomplete="tel" required /><div class="err">Please enter your phone number.</div></div>
             </div>
-            <div class="field"><label>Chick-fil-A Store Address</label><input type="text" name="store_address" autocomplete="off" placeholder="Type store address…" /><div class="hint">Start typing to find your store.</div><div class="err">Please check this field.</div></div>
+            <!-- Chick-fil-A Store Address (GF field 34). Markup matches the site's
+                 autocomplete snippet so its site-wide JS binds here automatically. -->
+            <div class="field cfa-input-wrapper"><label>Chick-fil-A Store Address <span class="req">*</span></label>
+              <input type="text" name="store_address" class="cfa-autocomplete" autocomplete="off" placeholder="Type store address…" />
+              <ul class="cfa-suggestions" style="display:none;"></ul>
+              <input type="hidden" name="store_place_id" class="cfa-place-id" />
+              <div class="hint">Start typing and choose your store from the suggestions.</div>
+              <div class="err">Please select your store from the suggestions.</div>
+            </div>
             <div class="field"><label>Any question or a message for us?</label><textarea name="message" rows="3"></textarea></div>
             <div class="hp" aria-hidden="true"><label>Leave this blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
             <div><button class="btn btn--lg" type="submit"><span class="spin"></span><span class="label">Express Interest</span></button></div>
@@ -671,7 +686,12 @@
     form.addEventListener('submit',function(e){
       e.preventDefault(); clearMsg(form);
       var hp=form.querySelector('input[name="website"]'); if(hp&&hp.value){ showMsg(form,'ok','Thanks! We’ll be in touch.'); form.reset(); return; }
-      if(!validate(form)){ showMsg(form,'bad','Please fix the highlighted fields.'); return; }
+      var ok=validate(form);
+      // CFA store address must be chosen from the suggestions (needs a place_id)
+      var cfa=form.querySelector('.cfa-autocomplete');
+      if(cfa){ var pid=form.querySelector('input[name="store_place_id"]'); var fld=cfa.closest('.field');
+        if(!cfa.value.trim()||!(pid&&pid.value)){ if(fld) fld.classList.add('invalid'); ok=false; } }
+      if(!ok){ showMsg(form,'bad','Please fix the highlighted fields.'); return; }
       var btn=form.querySelector('button[type="submit"]'), labelEl=btn&&btn.querySelector('.label'), oldLabel=labelEl?labelEl.textContent:'';
       if(btn){ btn.setAttribute('aria-busy','true'); if(labelEl) labelEl.textContent='Sending…'; }
       var payload={ form_id:form.getAttribute('data-form-id'), fields:{} };
