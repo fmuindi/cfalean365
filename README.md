@@ -14,22 +14,44 @@ DIVI / WordPress site **without touching the LMS or theme code**.
 
 | File | What it is |
 |------|-----------|
-| `index.html` | The complete homepage — HTML + CSS + JS in one file (no build step, no external JS). |
+| `index.html` | The complete homepage — HTML + CSS + JS in one file (no build step, no external JS). Use for the Code-module / WPCode routes and for previewing. |
+| `page-lean365.php` | WordPress **page template** version of the same page (generated from `index.html`). Use for the drop-in-file route. Calls `wp_head()`/`wp_footer()` so plugins — including the Chick-fil-A address-autocomplete snippet — load. |
 | `gf-proxy.php` | Secure server-side handler for the two GravityForms. Keys stay on the server. |
 | `README.md` | This guide. |
 
+> **Note on this site's builder:** the "Chick-fil-A Builder / Theme Builder" is
+> **Divi, white-labeled** by the *Chick-fil-A Ghoster* plugin. Wherever Divi docs
+> say "Divi Builder", your admin says "Chick-fil-A Builder". The **Theme Builder**
+> screen is for site-wide headers/footers — **not** where you add this page.
+
 ---
 
-## Install (DIVI — recommended, no theme edits)
+## Install — pick ONE route
 
-1. In WordPress, create a new **blank page** (e.g. "Home v2"). Use a blank/full-width DIVI template.
-2. Add a single **Code** module.
-3. Open `index.html`, copy **everything between `<body>` and `</body>`** (the `<style>`, the markup, and the `<script>`), and paste it into the Code module.
-   - The `<link>` for Google Fonts can go in the DIVI page's *Integration → head* box, or leave the fonts to fall back automatically.
-4. Save, then set this page as your homepage under **Settings → Reading → Your homepage displays → A static page**.
-5. Upload `gf-proxy.php` (see **Forms** below).
+### Route A · Divi "Code" module (all in the admin UI)
+1. **Pages → Add New**, title it "Home", **Publish** once.
+2. In Page Attributes / page settings choose the **Blank Page** template (hides the theme header/footer; this page has its own).
+3. Click **"Use The Chick-fil-A Builder"** → **Build From Scratch**.
+4. Add a **Regular** section → **single-column** row → **(+) → Code** module.
+5. Paste **everything between `<body>` and `</body>`** from `index.html`. Save.
+6. **Settings → Reading → homepage → A static page → Home**.
 
-*(Alternative: paste the whole `index.html` into a blank PHP page template. Either works — the file is standalone.)*
+### Route B · Drop-in PHP template (most foolproof — no builder) ✅ recommended for this site
+1. Upload **`page-lean365.php`** to your active theme (ideally a **child theme**):
+   `wp-content/themes/<your-theme>/page-lean365.php` — via **Appearance → Theme File Editor** or SFTP.
+2. Edit the **Home** page → **Page Attributes → Template → "LEAN365 Home"**.
+3. **Settings → Reading → homepage → A static page → Home**.
+   *(No `<body>` copy/paste — the template already contains everything.)*
+
+### Route C · WPCode HTML shortcode (if the builder fights you)
+1. **WPCode → Add Snippet → Custom Code → "HTML Snippet."**
+2. Paste the `<body>` contents of `index.html`. Set insert method to **Shortcode**, Save/Activate.
+3. Put the generated `[wpcode id="…"]` on a plain page; set that page as the homepage.
+   *(WPCode keeps `<style>`/`<script>` intact; the plain block-editor "Custom HTML" box can mangle them — don't use that.)*
+
+**All routes:** upload `gf-proxy.php` (see **Forms**) and keep the Chick-fil-A
+autocomplete Code Snippet active. `page-lean365.php` is generated from
+`index.html`, so edit `index.html` and regenerate if you change the page.
 
 ---
 
