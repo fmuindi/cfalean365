@@ -119,15 +119,27 @@ Lean Leader Program deck:
 Internal-only material from the deck (risks, open questions, legal/onboarding
 steps) was **deliberately left off** the public page.
 
-**Still to add before launch:**
+**Now wired to live data:**
 
-- **Photos** — add 5 team photos to `assets/` (see `assets/README.md`) or point
-  the `src` paths at your media library. The LMS screenshot is already wired to
-  its live URL. Missing photos fall back to a branded block automatically.
-- **Video** — search `VIDEO EMBED` and paste your YouTube/Vimeo `<iframe>`.
-- **Login URL** — set `loginUrl` in `CFA_CONFIG`.
-- **Form field IDs** — verify `$FIELD_MAPS` in `gf-proxy.php` against forms 36 & 37.
-- Double-check stats and the Point University / cohort details are current.
+- **Images** — all `src`s point at your `cfalean365.com` media URLs (hero, the
+  Engage/Retain/Reward cards, and the LMS screenshot). Any image that fails to
+  load falls back to a branded block. If a `LEAN365-Intro-Image.0xx.png` is a
+  slide/graphic that looks cropped, tell me and I'll switch its fit or swap it.
+- **Video** — your live Vimeo embed (`video/1161914882`).
+- **Login** — `https://cfalean365.com/wp-login.php`.
+- **Form field IDs** — mapped in `gf-proxy.php`: Interest (36) Name `3`, Email `4`,
+  Phone `23`, Message `32`; Support (37) Name `1`, Email `2`, Subject `4`, Message `3`.
+
+**Still open:**
+
+- **Store-address field ID** (Interest form) — I mapped it as `22` (a guess);
+  confirm the real ID in the GF editor and update `$FIELD_MAPS['36']['store_address']`.
+- **Store-address autocomplete** — your Google Places snippet targets the native
+  GF field, so it won't run on the custom input. To keep the CFA-restricted
+  autocomplete, either share the snippet + Google Maps API key so I can port it,
+  or we embed the native GF field just for that form. Until then it's a plain
+  text input (still submits fine).
+- Rotate the REST keys shared earlier.
 
 ## Design language
 

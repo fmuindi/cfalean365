@@ -45,22 +45,22 @@ const ALLOWED_ORIGINS = [
 //    For a GF "Name" advanced field the sub-inputs are like "1.3" (first),
 //    "1.6" (last). A simple single-line field is just "1", "2", etc.
 $FIELD_MAPS = [
-    // Join the Pilot Interest — form 36
+    // CFA Pilot Interest Form — form 36 (IDs confirmed from GF editor)
     '36' => [
-        'first_name' => '1.3',   // e.g. Name field → First
-        'last_name'  => '1.6',   // e.g. Name field → Last
-        'email'      => '2',
-        'restaurant' => '3',
-        'role'       => '4',
-        'message'    => '5',
+        'first_name'    => '3.3',   // Name (ID 3) → First
+        'last_name'     => '3.6',   // Name (ID 3) → Last
+        'email'         => '4',     // Email (ID 4)
+        'phone'         => '23',    // Phone (ID 23)
+        'store_address' => '22',    // Chick-fil-A Store Address — ⚠️ VERIFY THIS ID
+        'message'       => '32',    // "Any question or a message for us?" (ID 32)
     ],
-    // Support ("Need Help? Our Pleasure!") — form 37
+    // Support Contact Form — form 37 (IDs confirmed from GF editor)
     '37' => [
-        'first_name' => '1.3',   // Name field → First
-        'last_name'  => '1.6',   // Name field → Last
-        'email'      => '2',
-        'subject'    => '3',
-        'message'    => '4',
+        'first_name' => '1.3',   // Name (ID 1) → First
+        'last_name'  => '1.6',   // Name (ID 1) → Last
+        'email'      => '2',     // Email (ID 2)
+        'subject'    => '4',     // Subject (ID 4)
+        'message'    => '3',     // Message (ID 3)
     ],
 ];
 
