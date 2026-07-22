@@ -43,6 +43,10 @@
     --maxw:1180px; --ease:cubic-bezier(.22,.61,.36,1);
     --dots:radial-gradient(currentColor 1.6px, transparent 1.7px);
   }
+  /* Load Apercu from the SAME origin as the page so it isn't blocked by CORS
+     (the theme references it on cfalean365.wpengine.com, which cross-origin-fails). */
+  @font-face{ font-family:'Apercu Pro'; src:url('/wp-content/uploads/et-fonts/ApercuPro.ttf') format('truetype'); font-weight:100 900; font-style:normal; font-display:swap; }
+  @font-face{ font-family:'Apercu';     src:url('/wp-content/uploads/et-fonts/ApercuPro.ttf') format('truetype'); font-weight:100 900; font-style:normal; font-display:swap; }
   *,*::before,*::after{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   @media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
@@ -335,6 +339,22 @@
   .form-card.accent .gform_wrapper .gform_footer input[type=submit],.form-card.accent .gform_wrapper button.gform_button{ background:#fff !important; color:var(--red) !important; border-color:#fff !important; }
   .form-card.accent .gform_wrapper .gform_footer input[type=submit]:hover{ background:var(--red-soft) !important; color:var(--red-dark) !important; border-color:var(--red-soft) !important; }
   .form-card.accent .gform_wrapper .validation_message{ color:#fff !important; }
+
+  /* --- Pilot-card polish: tighter spacing + visible address label + nicer suggestions --- */
+  .form-card .gform_wrapper .gform_fields{ display:grid !important; grid-template-columns:1fr !important; grid-row-gap:14px !important; row-gap:14px !important; }
+  .form-card .gform_wrapper .gfield{ margin:0 !important; padding:0 !important; }
+  .form-card .gform_wrapper .gsection,.form-card .gform_wrapper .gfield--type-section{ margin:.2rem 0 !important; padding:0 !important; border:0 !important; min-height:0 !important; }
+  .form-card .gform_wrapper .gsection .gsection_title{ display:none !important; }
+  .form-card .gform_wrapper .ginput_complex label,.form-card .gform_wrapper .gfield_label{ margin-bottom:.3rem !important; }
+  .form-card .cfa-input-wrapper{ margin:0 !important; }
+  /* store-address label — force visible/white on the red card */
+  .form-card .cfa-input-wrapper label{ font-family:var(--font-head) !important; font-weight:600 !important; font-size:.9rem !important; margin-bottom:.35rem !important; display:block; }
+  .form-card.accent .cfa-input-wrapper label,.form-card.accent .cfa-input-wrapper label strong{ color:#fff !important; }
+  /* autocomplete dropdown */
+  .form-card .cfa-suggestions{ border:1px solid var(--line) !important; border-radius:var(--r-sm) !important; box-shadow:var(--shadow-md) !important; margin-top:4px !important; padding:0 !important; overflow:hidden auto; max-height:240px; background:#fff !important; }
+  .form-card .cfa-suggestion-item{ font-family:var(--font-body) !important; color:var(--ink) !important; padding:.7rem .9rem !important; border-bottom:1px solid var(--line) !important; line-height:1.35 !important; font-size:.9rem !important; cursor:pointer; }
+  .form-card .cfa-suggestion-item:last-child{ border-bottom:0 !important; }
+  .form-card .cfa-suggestion-item:hover{ background:var(--red-soft) !important; color:var(--red-dark) !important; }
 
   /* ====================== FINAL CTA ====================== */
   .cta-band{ text-align:center; }
