@@ -71,7 +71,7 @@ function cfa_rest_submit( WP_REST_Request $request ) {
     }
 
     if ( ! class_exists( 'GFAPI' ) ) {
-        return new WP_REST_Response( [ 'ok' => false, 'message' => 'Forms are temporarily unavailable. Please email info@cfalean365.com.' ], 500 );
+        return new WP_REST_Response( [ 'ok' => false, 'message' => 'Forms are temporarily unavailable. Please email support@cfalean365.com.' ], 500 );
     }
 
     // Build GFAPI values keyed by field id.

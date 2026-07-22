@@ -136,7 +136,7 @@
   .hero h1 .hl::after{ content:""; position:absolute; left:0; right:0; bottom:.04em; height:.12em; background:var(--gold); border-radius:2px; opacity:.85; }
   .hero .lead{ margin-block:1.2rem 2rem; }
   .hero-cta{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:center; }
-  .hero-note{ margin-top:2.1rem; font-size:.92rem; color:var(--muted); }
+  .hero-note{ margin-top:2.8rem; font-size:.92rem; color:var(--muted); }
   .hero-note a{ color:var(--red); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 
   .hero-art{ position:relative; }
@@ -167,7 +167,7 @@
   .donut-legend b{ margin-left:auto; color:var(--ink); }
   .donut-legend .k{ width:14px; height:14px; border-radius:4px; flex:0 0 auto; }
   .k-val{ background:var(--red); } .k-nec{ background:var(--navy); } .k-waste{ background:var(--gold); }
-  .donut-note{ font-size:.8rem; color:var(--muted); margin:1rem auto 0; max-width:38ch; }
+  .donut-note{ text-align:center; font-size:.82rem; color:var(--muted); margin:1.2rem auto 0; max-width:36ch; line-height:1.5; }
   .lean-copy h2{ font-size:clamp(1.8rem,3.6vw,2.7rem); }
   .lean-copy>p{ font-size:1.02rem; }
   .why-list{ list-style:none; padding:0; margin:1.4rem 0 0; display:grid; gap:1rem; }
@@ -229,11 +229,12 @@
 
   /* ====================== STATS ====================== */
   .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(16px,2vw,24px); }
-  .statc{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(20px,2.6vw,30px); box-shadow:var(--shadow-sm); position:relative; overflow:hidden; }
-  .statc::before{ content:""; position:absolute; right:-18px; top:-18px; width:76px; height:76px; color:var(--red); background:var(--dots); background-size:13px 13px; opacity:.32; }
-  .statc .n{ font-family:var(--font-head); font-weight:900; font-size:clamp(2.1rem,4vw,3rem); line-height:1; color:var(--navy); }
+  .statc{ background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(22px,2.6vw,30px) clamp(20px,2.4vw,28px); box-shadow:var(--shadow-sm); position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:center; }
+  .statc::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--red); }
+  .statc:nth-child(2)::before{ background:var(--navy); } .statc:nth-child(3)::before{ background:var(--gold); } .statc:nth-child(4)::before{ background:var(--red); }
+  .statc .n{ font-family:var(--font-head); font-weight:800; font-size:clamp(2.1rem,4vw,3rem); line-height:1; color:var(--navy); }
   .statc:nth-child(odd) .n{ color:var(--red); }
-  .statc .l{ font-size:.9rem; color:var(--ink-soft); margin-top:.5rem; }
+  .statc .l{ font-size:.9rem; color:var(--ink-soft); margin-top:.55rem; line-height:1.35; }
 
   /* ====================== PILOT PATH ====================== */
   .pilot{ background:var(--navy); color:#fff; }
@@ -242,11 +243,12 @@
   .ppath .ps{ position:relative; text-align:center; padding:0 .3rem; }
   .ppath .ps .num{ width:52px; height:52px; margin:0 auto .8rem; border-radius:50%; background:rgba(255,255,255,.08); border:2px solid rgba(255,255,255,.35); color:#fff; font-family:var(--font-head); font-weight:900; font-size:1.2rem; display:grid; place-items:center; position:relative; z-index:1; }
   .ppath .ps:nth-child(1) .num, .ppath .ps:nth-child(6) .num{ background:var(--red); border-color:var(--red); }
-  .ppath .ps::after{ content:""; position:absolute; top:26px; left:62%; right:-38%; height:2px; color:var(--gold); background:var(--dots); background-size:12px 2px; opacity:.6; }
+  .ppath .ps::after{ content:""; position:absolute; top:25px; left:60%; right:-40%; height:0; border-top:2px dashed rgba(245,179,53,.85); z-index:0; }
   .ppath .ps:last-child::after{ display:none; }
   .ppath h4{ color:#fff; font-size:.98rem; margin-bottom:.3rem; }
   .ppath p{ color:rgba(255,255,255,.72); font-size:.82rem; margin:0; }
-  .pilot-note{ text-align:center; margin-top:clamp(26px,3vw,40px); font-weight:600; color:rgba(255,255,255,.92); display:flex; align-items:center; justify-content:center; gap:.6rem; flex-wrap:wrap; }
+  .pilot-note{ text-align:center; margin-top:clamp(28px,3.4vw,44px); font-weight:600; color:#fff !important; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:.6rem; flex-wrap:nowrap; max-width:760px; margin-inline:auto; }
+  @media (max-width:560px){ .pilot-note{ flex-wrap:wrap; } }
   .pilot-note svg{ width:20px; height:20px; color:var(--gold); flex:0 0 auto; }
   .pilot-cta{ text-align:center; margin-top:1.5rem; }
   @media (max-width:980px){ .ppath{ grid-template-columns:repeat(3,1fr); gap:28px 12px; } .ppath .ps:nth-child(3)::after{ display:none; } }
@@ -354,6 +356,18 @@
   .form-card.accent .gform_wrapper .gform_footer input[type=submit],.form-card.accent .gform_wrapper button.gform_button{ background:#fff !important; color:var(--red) !important; border-color:#fff !important; }
   .form-card.accent .gform_wrapper .gform_footer input[type=submit]:hover{ background:var(--red-soft) !important; color:var(--red-dark) !important; border-color:var(--red-soft) !important; }
   .form-card.accent .gform_wrapper .validation_message{ color:#fff !important; }
+
+  /* force EVERY control + its container to full, uniform width & height */
+  .form-card .gform_wrapper .gfield,
+  .form-card .gform_wrapper .ginput_container,
+  .form-card .gform_wrapper .ginput_complex,
+  .form-card .cfa-input-wrapper{ width:100% !important; max-width:100% !important; }
+  .form-card .gform_wrapper input:not([type=submit]):not([type=button]):not([type=checkbox]):not([type=radio]),
+  .form-card .gform_wrapper textarea,
+  .form-card .gform_wrapper select,
+  .form-card .cfa-autocomplete{ width:100% !important; max-width:100% !important; min-height:50px !important; box-sizing:border-box !important; }
+  .form-card .gform_wrapper textarea{ min-height:120px !important; }
+  .form-card .gform_wrapper .ginput_complex > span{ width:100% !important; display:block; }
 
   /* --- Pilot-card polish: comfortable spacing + visible address label + nicer suggestions --- */
   .form-card .gform_wrapper .gform_fields{ display:grid !important; grid-template-columns:1fr !important; grid-row-gap:20px !important; row-gap:20px !important; }
@@ -761,7 +775,7 @@
         </div>
         <div><h4>Program</h4><ul><li><a href="#program">The Program</a></li><li><a href="#pilot">How the Pilot Works</a></li><li><a href="#included">What's Included</a></li><li><a href="#why">Why LEAN365</a></li></ul></div>
         <div><h4>Members</h4><ul><li><a data-login href="#">Member Login</a></li><li><a data-login href="#">Learning Portal</a></li><li><a href="#interest">Express Interest</a></li></ul></div>
-        <div><h4>Contact</h4><ul><li><a href="#support">Contact Support</a></li><li><a href="mailto:info@cfalean365.com">info@cfalean365.com</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><a href="#support">Contact Support</a></li><li><a href="mailto:support@cfalean365.com">support@cfalean365.com</a></li></ul></div>
       </div>
       <div class="foot-bottom">
         <span>© <span id="cfaYear"></span> LEAN365 · Circle K Supply Chain Solutions. All rights reserved.</span>
