@@ -253,7 +253,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
   .ppath .ps:last-child::after{ display:none; }
   .ppath h4{ color:#fff; font-size:.98rem; margin-bottom:.3rem; }
   .ppath p{ color:rgba(255,255,255,.72); font-size:.82rem; margin:0; }
-  .pilot-note{ text-align:center; align-items: center; margin:clamp(28px,3.4vw,44px) auto 0; font-weight:600; color:#fff !important; font-size:1rem; max-width:680px; line-height:1.5; }
+  .pilot-note{ text-align:center; align-items: center; font-weight:600; color:#fff !important; font-size:1rem; max-width:680px; line-height:1.5; }
   .pilot-note svg{ display:inline-block; vertical-align:-4px; margin-right:.45rem; color:var(--gold); width:19px; height:19px; }
   .pilot-cta{ text-align:center; margin-top:1.5rem; }
   @media (max-width:980px){ .ppath{ grid-template-columns:repeat(3,1fr); gap:28px 12px; } .ppath .ps:nth-child(3)::after{ display:none; } }
