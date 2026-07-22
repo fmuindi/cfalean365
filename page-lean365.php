@@ -5,21 +5,18 @@
  * Standalone LEAN365 Essentials landing page (Chick-fil-A / Divi site).
  *
  * HOW TO USE:
- *   1. Upload this file to your ACTIVE theme (ideally a child theme) folder,
- *      e.g. wp-content/themes/<your-theme>/page-lean365.php
- *   2. WordPress > Pages > add/edit your Home page > in Page Attributes set
- *      Template = "LEAN365 Home".
- *   3. Settings > Reading > Your homepage displays > A static page > Home.
+ *   1. Upload this file to your ACTIVE theme (ideally a child theme):
+ *      wp-content/themes/<your-theme>/page-lean365.php
+ *   2. Pages > edit Home > Page Attributes > Template = "LEAN365 Home".
+ *   3. Settings > Reading > A static page > Home.
  *
- * WHY A TEMPLATE (not get_header/get_footer): this page ships its own header
- * and footer, so it does NOT call the theme's. It DOES call wp_head()/wp_footer()
- * so plugins still load — including your "Chick-fil-A Autocomplete" snippet,
- * which the store-address field depends on.
+ * Ships its own header/footer (does NOT call the theme's), but DOES call
+ * wp_head()/wp_footer() so plugins load — including the Chick-fil-A address
+ * autocomplete snippet and GravityForms. The two forms are your real GF forms,
+ * embedded via do_shortcode(), so all existing behavior works unchanged.
  *
- * Logged-in users: your existing redirect snippet already sends them to the LMS,
- * so this template only ever renders for logged-out visitors. No redirect is
- * added here on purpose (avoids any redirect loop with your snippet). If you
- * ever need one, add it in your snippet, not here.
+ * Logged-in users are already redirected to the LMS by your snippet, so no
+ * redirect is added here (avoids loops).
  * ---------------------------------------------------------------------------
  */
 
@@ -307,6 +304,42 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
   .forms .cfa-suggestion-item:hover{ background:var(--red-soft); }
   /* keep suggestion text readable inside the red accent card */
   .form-card.accent .cfa-suggestions, .form-card.accent .cfa-suggestion-item{ color:var(--ink); }
+
+  /* ===== Native GravityForms embeds, styled to match the cards ===== */
+  .gf-embed .gf-note{ font-size:.9rem; color:var(--muted); background:#fff; border:1px dashed var(--line); border-radius:var(--r-sm); padding:1rem 1.1rem; margin:0; }
+  .form-card.accent .gf-embed .gf-note{ color:#fff; border-color:rgba(255,255,255,.5); background:transparent; }
+  .form-card .gform_wrapper, .form-card .gform_wrapper form{ margin:0 !important; }
+  .form-card .gform_wrapper .gfield{ margin-bottom:1rem !important; }
+  .form-card .gform_wrapper .gfield_label{ font-family:var(--font-head) !important; font-weight:600 !important; font-size:.9rem !important; margin-bottom:.35rem !important; color:var(--ink); }
+  .form-card .gform_wrapper .ginput_container input[type=text],
+  .form-card .gform_wrapper .ginput_container input[type=email],
+  .form-card .gform_wrapper .ginput_container input[type=tel],
+  .form-card .gform_wrapper .ginput_container input[type=number],
+  .form-card .gform_wrapper .ginput_container textarea,
+  .form-card .gform_wrapper textarea,
+  .form-card .gform_wrapper select,
+  .form-card .gform_wrapper .cfa-autocomplete{
+    width:100% !important; font-family:var(--font-body) !important; font-size:1rem !important; color:var(--ink) !important;
+    padding:.85rem 1rem !important; border:1.5px solid var(--line) !important; border-radius:var(--r-sm) !important; background:#fff !important; box-shadow:none !important; }
+  .form-card .gform_wrapper textarea{ min-height:120px !important; }
+  .form-card .gform_wrapper input:focus,.form-card .gform_wrapper textarea:focus,.form-card .gform_wrapper select:focus{ outline:none !important; border-color:var(--navy) !important; box-shadow:0 0 0 4px var(--navy-soft) !important; }
+  .form-card .gform_wrapper .gfield_description{ font-size:.78rem; color:var(--muted); padding-top:.3rem; }
+  .form-card .gform_wrapper .gfield_required{ color:var(--red); }
+  .form-card .gform_footer,.form-card .gform_wrapper .gform_footer{ margin-top:1.2rem !important; padding:0 !important; }
+  .form-card .gform_wrapper .gform_footer input[type=submit],
+  .form-card .gform_wrapper button.gform_button{
+    font-family:var(--font-head) !important; font-weight:700 !important; font-size:1.05rem !important; color:#fff !important;
+    background:var(--navy) !important; border:2px solid var(--navy) !important; border-radius:var(--r-pill) !important;
+    padding:.95em 2em !important; width:auto !important; cursor:pointer !important; transition:transform .18s var(--ease),background .18s var(--ease); }
+  .form-card .gform_wrapper .gform_footer input[type=submit]:hover{ transform:translateY(-2px); background:var(--navy-dark) !important; border-color:var(--navy-dark) !important; }
+  .form-card .gform_wrapper .gfield_error input,.form-card .gform_wrapper .gfield_error textarea,.form-card .gform_wrapper .gfield_error select{ border-color:#8A0015 !important; }
+  .form-card .gform_wrapper .validation_message{ color:#8A0015 !important; font-size:.82rem; font-weight:600; }
+  .form-card .gform_wrapper .gform_validation_errors{ background:#FDEBEC; border:1px solid #F3C2C6; border-radius:var(--r-sm); padding:.8rem 1rem; margin-bottom:1rem; box-shadow:none; }
+  .form-card .gform_confirmation_message{ color:var(--ink); font-weight:600; }
+  .form-card.accent .gform_wrapper .gfield_label,.form-card.accent .gform_wrapper .gfield_description,.form-card.accent .gform_confirmation_message{ color:#fff !important; }
+  .form-card.accent .gform_wrapper .gform_footer input[type=submit],.form-card.accent .gform_wrapper button.gform_button{ background:#fff !important; color:var(--red) !important; border-color:#fff !important; }
+  .form-card.accent .gform_wrapper .gform_footer input[type=submit]:hover{ background:var(--red-soft) !important; color:var(--red-dark) !important; border-color:var(--red-soft) !important; }
+  .form-card.accent .gform_wrapper .validation_message{ color:#fff !important; }
 
   /* ====================== FINAL CTA ====================== */
   .cta-band{ text-align:center; }
@@ -633,47 +666,16 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
           <span class="eyebrow">Pilot interest</span>
           <h3>Express Interest in the Pilot</h3>
           <p class="sub">Tell us about your restaurant and we'll be in touch about current and future cohorts.</p>
-          <form class="cfa-form" data-form-id="36" novalidate>
-            <div class="two-col">
-              <div class="field"><label>First name <span class="req">*</span></label><input type="text" name="first_name" autocomplete="given-name" required /><div class="err">Please enter your first name.</div></div>
-              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" name="last_name" autocomplete="family-name" required /><div class="err">Please enter your last name.</div></div>
-            </div>
-            <div class="two-col">
-              <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" autocomplete="email" required /><div class="err">Please enter a valid email address.</div></div>
-              <div class="field"><label>Phone <span class="req">*</span></label><input type="tel" name="phone" autocomplete="tel" required /><div class="err">Please enter your phone number.</div></div>
-            </div>
-            <!-- Chick-fil-A Store Address (GF field 34). Markup matches the site's
-                 autocomplete snippet so its site-wide JS binds here automatically. -->
-            <div class="field cfa-input-wrapper"><label>Chick-fil-A Store Address <span class="req">*</span></label>
-              <input type="text" name="store_address" class="cfa-autocomplete" autocomplete="off" placeholder="Type store address…" />
-              <ul class="cfa-suggestions" style="display:none;"></ul>
-              <input type="hidden" name="store_place_id" class="cfa-place-id" />
-              <div class="hint">Start typing and choose your store from the suggestions.</div>
-              <div class="err">Please select your store from the suggestions.</div>
-            </div>
-            <div class="field"><label>Any question or a message for us?</label><textarea name="message" rows="3"></textarea></div>
-            <div class="hp" aria-hidden="true"><label>Leave this blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
-            <div><button class="btn btn--lg" type="submit"><span class="spin"></span><span class="label">Express Interest</span></button></div>
-            <div class="form-msg" role="status" aria-live="polite"></div>
-          </form>
+          <!-- GF-EMBED 36 · page-lean365.php replaces this with the real form via do_shortcode -->
+          <div class="gf-embed" data-gf="36"><?php echo do_shortcode('[gravityform id="36" title="false" description="false" ajax="true"]'); ?></div>
         </div>
         <!-- Support Contact Form — GravityForms id 37 -->
         <div class="form-card reveal" id="support">
           <span class="eyebrow navy">Support</span>
           <h3>Need Help? Our Pleasure!</h3>
           <p class="sub">For questions about LEAN365, your boxes or physical materials, or about this website, let us know how we can help. Someone from the LEAN Team will reach out within 48 hours.</p>
-          <form class="cfa-form" data-form-id="37" novalidate>
-            <div class="two-col">
-              <div class="field"><label>First name <span class="req">*</span></label><input type="text" name="first_name" autocomplete="given-name" required /><div class="err">Please enter your first name.</div></div>
-              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" name="last_name" autocomplete="family-name" required /><div class="err">Please enter your last name.</div></div>
-            </div>
-            <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" autocomplete="email" required /><div class="err">Please enter a valid email address.</div></div>
-            <div class="field"><label>Subject <span class="req">*</span></label><input type="text" name="subject" required /><div class="err">Please add a subject.</div></div>
-            <div class="field"><label>Message <span class="req">*</span></label><textarea name="message" maxlength="600" required></textarea><div class="hint">Up to 600 characters.</div><div class="err">Please tell us how we can help.</div></div>
-            <div class="hp" aria-hidden="true"><label>Leave this blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
-            <div><button class="btn btn--lg btn--navy" type="submit"><span class="spin"></span><span class="label">Submit</span></button></div>
-            <div class="form-msg" role="status" aria-live="polite"></div>
-          </form>
+          <!-- GF-EMBED 37 · page-lean365.php replaces this with the real form via do_shortcode -->
+          <div class="gf-embed" data-gf="37"><?php echo do_shortcode('[gravityform id="37" title="false" description="false" ajax="true"]'); ?></div>
         </div>
       </div>
     </div>
@@ -759,40 +761,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
   if(!reduce&&'IntersectionObserver' in window){ var cio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target); } }); },{threshold:.6});
     counters.forEach(function(el){ cio.observe(el); }); }
 
-  /* ============ FORMS ============ */
-  var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  function validate(form){ var ok=true, firstBad=null;
-    form.querySelectorAll('.field').forEach(function(field){ var input=field.querySelector('input,select,textarea'); if(!input)return;
-      var val=(input.value||'').trim(), required=input.hasAttribute('required'), bad=false;
-      if(required&&!val) bad=true; if(input.type==='email'&&val&&!EMAIL_RE.test(val)) bad=true;
-      field.classList.toggle('invalid',bad); if(bad&&!firstBad) firstBad=input; if(bad) ok=false; });
-    if(firstBad) firstBad.focus(); return ok; }
-  function showMsg(form,type,text){ var b=form.querySelector('.form-msg'); if(!b)return; b.className='form-msg '+(type==='ok'?'ok':'bad'); b.textContent=text; }
-  function clearMsg(form){ var b=form.querySelector('.form-msg'); if(b){ b.className='form-msg'; b.textContent=''; } }
-
-  document.querySelectorAll('.cfa-form').forEach(function(form){
-    form.addEventListener('input',function(e){ var f=e.target.closest('.field'); if(f) f.classList.remove('invalid'); });
-    form.addEventListener('submit',function(e){
-      e.preventDefault(); clearMsg(form);
-      var hp=form.querySelector('input[name="website"]'); if(hp&&hp.value){ showMsg(form,'ok','Thanks! We’ll be in touch.'); form.reset(); return; }
-      var ok=validate(form);
-      // CFA store address must be chosen from the suggestions (needs a place_id)
-      var cfa=form.querySelector('.cfa-autocomplete');
-      if(cfa){ var pid=form.querySelector('input[name="store_place_id"]'); var fld=cfa.closest('.field');
-        if(!cfa.value.trim()||!(pid&&pid.value)){ if(fld) fld.classList.add('invalid'); ok=false; } }
-      if(!ok){ showMsg(form,'bad','Please fix the highlighted fields.'); return; }
-      var btn=form.querySelector('button[type="submit"]'), labelEl=btn&&btn.querySelector('.label'), oldLabel=labelEl?labelEl.textContent:'';
-      if(btn){ btn.setAttribute('aria-busy','true'); if(labelEl) labelEl.textContent='Sending…'; }
-      var payload={ form_id:form.getAttribute('data-form-id'), fields:{} };
-      form.querySelectorAll('input,select,textarea').forEach(function(el){ if(!el.name||el.name==='website')return; payload.fields[el.name]=el.value; });
-      fetch(window.CFA_CONFIG.formEndpoint,{ method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify(payload) })
-        .then(function(r){ return r.json().catch(function(){return{ok:false};}).then(function(d){ return {status:r.status,data:d}; }); })
-        .then(function(res){ if(res.status>=200&&res.status<300&&res.data&&res.data.ok!==false){ showMsg(form,'ok',res.data.message||'Thank you! Your submission was received — we’ll be in touch soon.'); form.reset(); }
-          else { showMsg(form,'bad',(res.data&&(res.data.message||res.data.error))||'Sorry, something went wrong. Please try again or email info@cfalean365.com.'); } })
-        .catch(function(){ showMsg(form,'bad','We couldn’t reach the server. Please check your connection and try again.'); })
-        .finally(function(){ if(btn){ btn.removeAttribute('aria-busy'); if(labelEl) labelEl.textContent=oldLabel; } });
-    });
-  });
+  /* Forms are native GravityForms embeds (rendered by page-lean365.php).
+     GF handles submission, validation, the Chick-fil-A autocomplete and
+     anti-spam, so no custom form JS is needed here. */
 })();
 </script>
 <?php wp_footer(); ?>

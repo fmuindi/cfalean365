@@ -63,61 +63,53 @@ autocomplete Code Snippet active. `page-lean365.php` is generated from
 
 ## ⚙️ Before you go live — 4 quick edits
 
-Open `index.html` and find the **`CFA_CONFIG`** block near the bottom (in the `<script>`):
+Most things are already wired to your live site. Find the **`CFA_CONFIG`** block
+near the bottom of `index.html` (in the `<script>`):
 
 ```js
 window.CFA_CONFIG = {
-  loginUrl:     "/wp-login.php",   // ← set to your real LMS/login URL
-  formEndpoint: "/gf-proxy.php"    // ← path where you uploaded gf-proxy.php
+  loginUrl:     "https://cfalean365.com/wp-login.php", // member/LMS login
+  formEndpoint: "/wp-json/cfa/v1/submit"              // unused with native forms
 };
 ```
 
-1. **`loginUrl`** — every "Login / Member Login / Learning Center" link uses this. Point it at your actual member login page.
-2. **`formEndpoint`** — where the forms POST. Match wherever you place `gf-proxy.php`.
-3. **Logo** — the header uses your hosted logo URL; if it moves, update the `<img src>` in the header (a text logo shows automatically if the image fails).
-4. **Images** — search the file for **`IMAGE SLOT`**. Replace each decorative placeholder `<div class="placeholder">…</div>` with a real `<img src="…" alt="…">`. Suggested spots: hero photo, learning-center screenshot.
+1. **`loginUrl`** — already set to your login. Every "Login / Member Login /
+   Learning Portal" link uses it.
+2. **`formEndpoint`** — **not used** by the native GravityForms embeds; leave it.
+3. **Images / video / logo** — already point at your `cfalean365.com` media and
+   Vimeo. Swap the `LEAN365-Intro-Image.0xx` URLs if you prefer different photos.
 
 ---
 
-## Forms — "Sorry, something went wrong" means the endpoint isn't live yet
+## Forms — native GravityForms embeds (the working solution)
 
-The page posts to `window.CFA_CONFIG.formEndpoint`. If that URL doesn't exist,
-you get *"Sorry, something went wrong."* Pick ONE handler:
+The forms are your **real GravityForms**, embedded as shortcodes and styled to
+match the cards. Every existing behavior runs exactly as today — the
+**Chick-fil-A address autocomplete**, your **restaurant-code validation**,
+**anti-spam**, **notifications** and **confirmations** — with **no field mapping,
+no API keys, no custom endpoint.** This is what fixed the *"We could not submit /
+Please check your details"* errors (those came from `GFAPI::submit_form()` not
+matching your exact field formats — e.g. simple vs. advanced Name).
 
-### Option 1 · WordPress REST snippet — RECOMMENDED (no file upload) ✅
-1. **WPCode → Add Snippet → Add Your Custom Code → "PHP Snippet."**
-2. Paste the contents of **`cfa-forms-snippet.php`**, set it to **Run Everywhere**, Save & Activate.
-3. It registers **`POST /wp-json/cfa/v1/submit`** — which is the default
-   `formEndpoint` already set in the page. Nothing else to change.
-   *(Best on WP Engine — runs inside WordPress, no loose PHP file, no caching quirks.)*
+**This requires Route B (the PHP template)** — a static Code module can't run
+shortcodes. `page-lean365.php` renders:
+```php
+<?php echo do_shortcode('[gravityform id="36" title="false" description="false" ajax="true"]'); ?>
+<?php echo do_shortcode('[gravityform id="37" title="false" description="false" ajax="true"]'); ?>
+```
 
-### Option 2 · Upload `gf-proxy.php` (if you prefer a file)
-- **Where:** your site's **web root** — the folder that contains `wp-config.php`
-  / `wp-load.php`. On **WP Engine**: *User Portal → your site → SFTP/Git → connect
-  via SFTP → drop `gf-proxy.php` in the root* (same level as `wp-config.php`).
-- Then set `formEndpoint` to **`/gf-proxy.php`** in the page's `CFA_CONFIG`.
+`index.html` includes `.form-card .gform_wrapper …` CSS that restyles the GF
+"orbital" markup (inputs, labels, submit button, errors) to match — including
+white labels/submit on the red Interest card.
 
-Both handlers do the same thing: run GravityForms **server-side** via
-`GFAPI::submit_form()` (full validation, notifications, confirmations), resolve
-the Chick-fil-A store address from the Google `place_id` by reusing your own
-`cfa_fetch_place_details()`, and need **no API keys in the page**. Field IDs are
-already mapped (Interest 36: `3/4/23/34/32`; Support 37: `1/2/4/3`).
+**Requirement:** keep your "Chick-fil-A Autocomplete" Code Snippet active
+site-wide (it renders the store-address field on the native form).
 
-**Requirement either way:** keep your "Chick-fil-A Autocomplete" Code Snippet
-active site-wide (it powers the store-address field).
-
----
-
-## 🔐 Security — please read
-
-- **Rotate the REST keys you shared in chat.** They were transmitted in plain
-  text, so treat them as compromised: WooCommerce → Advanced → REST API (or
-  Forms → Settings → REST API) → revoke and regenerate.
-- **Never put the keys in `index.html` or any client-side JavaScript** — anyone
-  could view-source and steal them. That's the whole reason for the PHP proxy.
-- If you use Mode B, store the new keys as server **environment variables**
-  (`GF_CONSUMER_KEY`, `GF_CONSUMER_SECRET`) or in `wp-config.php`, not in the file.
-- Prefer **Mode A** — it needs no keys at all.
+### Not needed with native embeds
+`gf-proxy.php` and `cfa-forms-snippet.php` remain only for a **headless** setup
+(custom HTML → server handler). They are **unused** by the native-embed approach
+and can be ignored. No REST API consumer keys are needed anywhere — if you shared
+any in chat, rotate them as a precaution.
 
 ---
 
