@@ -694,7 +694,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
         <div class="reveal">
           <div class="browser">
             <div class="bar"><i></i><i></i><i></i><span class="url">cfalean365.com · learning portal</span></div>
-            <div class="ph"><img src="https://cfalean365.com/wp-content/uploads/2026/07/7dcac826-d259-4ba6-9d2a-ddadbd6c87f5.png" alt="LEAN365 online learning portal" loading="lazy" onerror="this.style.display='none'" /><span class="ph-note">Learning portal</span></div>
+            <div class="ph"><img src="https://cfalean365.com/wp-content/uploads/2026/07/lms-dash1.png" alt="LEAN365 online learning portal" loading="lazy" onerror="this.style.display='none'" /><span class="ph-note">Learning portal</span></div>
           </div>
         </div>
         <div class="reveal">
