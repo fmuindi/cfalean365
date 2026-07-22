@@ -137,6 +137,7 @@
   .hero .lead{ margin-block:1.2rem 2rem; }
   .hero-cta{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:center; }
   .hero-copy .hero-note{ margin-top:2.8rem; font-size:.92rem; color:var(--muted); }
+  .hero-copy .hero-note.alt{ margin-top:.55rem; }
   .hero-note{ font-size:.92rem; color:var(--muted); }
   .hero-note a{ color:var(--red); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 
@@ -168,7 +169,7 @@
   .donut-legend b{ margin-left:auto; color:var(--ink); }
   .donut-legend .k{ width:14px; height:14px; border-radius:4px; flex:0 0 auto; }
   .k-val{ background:var(--red); } .k-nec{ background:var(--navy); } .k-waste{ background:var(--gold); }
-  .donut-note{ text-align:center; font-size:.82rem; color:var(--muted); margin:1.2rem auto 0; max-width:36ch; line-height:1.5; }
+  .lean-viz .donut-note{ text-align:center; font-size:.82rem; color:var(--muted); margin:1.2rem auto 0; max-width:36ch; line-height:1.5; }
   .lean-copy h2{ font-size:clamp(1.8rem,3.6vw,2.7rem); }
   .lean-copy>p{ font-size:1.02rem; }
   .why-list{ list-style:none; padding:0; margin:1.4rem 0 0; display:grid; gap:1rem; }
@@ -248,7 +249,7 @@
   .ppath .ps:last-child::after{ display:none; }
   .ppath h4{ color:#fff; font-size:.98rem; margin-bottom:.3rem; }
   .ppath p{ color:rgba(255,255,255,.72); font-size:.82rem; margin:0; }
-  .pilot-note{ text-align:center; margin:clamp(28px,3.4vw,44px) auto 0; font-weight:600; color:#fff !important; font-size:1rem; max-width:680px; line-height:1.5; }
+  .pilot .pilot-note{ text-align:center; margin:clamp(28px,3.4vw,44px) auto 0; font-weight:600; color:#fff !important; font-size:1rem; max-width:680px; line-height:1.5; }
   .pilot-note svg{ display:inline-block; vertical-align:-4px; margin-right:.45rem; color:var(--gold); width:19px; height:19px; }
   .pilot-cta{ text-align:center; margin-top:1.5rem; }
   @media (max-width:980px){ .ppath{ grid-template-columns:repeat(3,1fr); gap:28px 12px; } .ppath .ps:nth-child(3)::after{ display:none; } }
@@ -415,6 +416,8 @@
   .foot-logo-chip{ display:inline-flex; background:#fff; border-radius:14px; padding:.7rem 1rem; margin-bottom:1rem; }
   .foot-logo-chip img{ height:40px; } .foot-logo-chip .fallback{ font-family:var(--font-head); font-weight:800; font-size:1.2rem; color:var(--navy); } .foot-logo-chip .fallback b{ color:var(--red); }
   .foot-brand p{ color:#93a8ae; font-size:.94rem; max-width:36ch; }
+  .foot-credit{ font-size:.86rem !important; margin-top:.8rem !important; color:#7f939a !important; }
+  .foot-credit a{ color:#c3d2d7; text-decoration:underline; text-underline-offset:2px; }
   .foot-bottom{ border-top:1px solid rgba(255,255,255,.12); margin-top:clamp(30px,4vw,48px); padding-top:1.6rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.86rem; color:#93a8ae; }
   .foot-bottom a{ color:#93a8ae; }
   @media (max-width:860px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
@@ -479,10 +482,6 @@
     <div class="cfa-wrap">
       <div class="hero-grid">
         <div class="hero-copy reveal">
-          <div class="hero-badges">
-            <span class="pill-badge"><span class="dot"></span> In partnership with Chick-fil-A</span>
-            <span class="pill-badge">A Circle&nbsp;K Supply&nbsp;Chain Solutions company</span>
-          </div>
           <span class="eyebrow">LEAN365 Essentials</span>
           <h1 id="heroTitle">Create capacity. Build a culture that <span class="hl">keeps improving</span>.</h1>
           <p class="lead">A step-by-step plan that helps Chick-fil-A teams create capacity through transformational tools that drive results, turning everyday effort into lasting continuous improvement.</p>
@@ -493,6 +492,7 @@
             <a class="btn btn--ghost btn--lg" href="#program">Explore the Program</a>
           </div>
           <p class="hero-note">Already part of LEAN365? <a data-login href="#">Log in to the learning portal →</a></p>
+          <p class="hero-note alt">Not a Chick-fil-A team? <a href="https://learn.cfalean365.com/">Access the LEAN365 platform →</a></p>
         </div>
 
         <div class="hero-art reveal">
@@ -690,7 +690,7 @@
         <div class="reveal">
           <div class="browser">
             <div class="bar"><i></i><i></i><i></i><span class="url">cfalean365.com · learning portal</span></div>
-            <div class="ph"><img src="https://cfalean365.com/wp-content/uploads/2026/07/cfalean365.com-1-4.png" alt="LEAN365 online learning portal" loading="lazy" onerror="this.style.display='none'" /><span class="ph-note">Learning portal</span></div>
+            <div class="ph"><img src="https://cfalean365.com/wp-content/uploads/2026/07/7dcac826-d259-4ba6-9d2a-ddadbd6c87f5.png" alt="LEAN365 online learning portal" loading="lazy" onerror="this.style.display='none'" /><span class="ph-note">Learning portal</span></div>
           </div>
         </div>
         <div class="reveal">
@@ -780,14 +780,15 @@
       <div class="foot-grid">
         <div class="foot-brand">
           <span class="foot-logo-chip"><img src="https://cfalean365.com/wp-content/uploads/2025/12/Chick-fil-A-LEAN365-Logo.png" alt="Chick-fil-A LEAN365" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="fallback" style="display:none">CFA&nbsp;<b>LEAN365</b></span></span>
-          <p>LEAN365, in partnership with Chick-fil-A and Circle K Supply Chain Solutions, helping teams create capacity and build a lasting culture of continuous improvement.</p>
+          <p>Helping teams create capacity and build a lasting culture of continuous improvement.</p>
+          <p class="foot-credit">In partnership with Chick-fil-A · A <a href="https://circleksolutions.com/" target="_blank" rel="noopener">Circle&nbsp;K Supply&nbsp;Chain Solutions</a> company.</p>
         </div>
         <div><h4>Program</h4><ul><li><a href="#program">The Program</a></li><li><a href="#pilot">How the Pilot Works</a></li><li><a href="#included">What's Included</a></li><li><a href="#why">Why LEAN365</a></li></ul></div>
-        <div><h4>Members</h4><ul><li><a data-login href="#">Member Login</a></li><li><a data-login href="#">Learning Portal</a></li><li><a href="#interest">Express Interest</a></li></ul></div>
+        <div><h4>Access</h4><ul><li><a data-login href="#">Member Login</a></li><li><a data-login href="#">Learning Portal</a></li><li><a href="https://learn.cfalean365.com/" target="_blank" rel="noopener">LEAN365 platform (non-CFA)</a></li><li><a href="#interest">Express Interest</a></li></ul></div>
         <div><h4>Contact</h4><ul><li><a href="#support">Contact Support</a></li><li><a href="mailto:support@cfalean365.com">support@cfalean365.com</a></li></ul></div>
       </div>
       <div class="foot-bottom">
-        <span>© <span id="cfaYear"></span> LEAN365 · Circle K Supply Chain Solutions. All rights reserved.</span>
+        <span>© <span id="cfaYear"></span> LEAN365 · <a href="https://circleksolutions.com/" target="_blank" rel="noopener">Circle&nbsp;K Supply&nbsp;Chain Solutions</a>. All rights reserved.</span>
         <span><a href="#top">Back to top ↑</a></span>
       </div>
     </div>
