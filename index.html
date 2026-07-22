@@ -136,7 +136,8 @@
   .hero h1 .hl::after{ content:""; position:absolute; left:0; right:0; bottom:.04em; height:.12em; background:var(--gold); border-radius:2px; opacity:.85; }
   .hero .lead{ margin-block:1.2rem 2rem; }
   .hero-cta{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:center; }
-  .hero-note{ margin-top:2.8rem; font-size:.92rem; color:var(--muted); }
+  .hero-copy .hero-note{ margin-top:2.8rem; font-size:.92rem; color:var(--muted); }
+  .hero-note{ font-size:.92rem; color:var(--muted); }
   .hero-note a{ color:var(--red); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 
   .hero-art{ position:relative; }
@@ -247,9 +248,8 @@
   .ppath .ps:last-child::after{ display:none; }
   .ppath h4{ color:#fff; font-size:.98rem; margin-bottom:.3rem; }
   .ppath p{ color:rgba(255,255,255,.72); font-size:.82rem; margin:0; }
-  .pilot-note{ text-align:center; margin-top:clamp(28px,3.4vw,44px); font-weight:600; color:#fff !important; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:.6rem; flex-wrap:nowrap; max-width:760px; margin-inline:auto; }
-  @media (max-width:560px){ .pilot-note{ flex-wrap:wrap; } }
-  .pilot-note svg{ width:20px; height:20px; color:var(--gold); flex:0 0 auto; }
+  .pilot-note{ text-align:center; margin:clamp(28px,3.4vw,44px) auto 0; font-weight:600; color:#fff !important; font-size:1rem; max-width:680px; line-height:1.5; }
+  .pilot-note svg{ display:inline-block; vertical-align:-4px; margin-right:.45rem; color:var(--gold); width:19px; height:19px; }
   .pilot-cta{ text-align:center; margin-top:1.5rem; }
   @media (max-width:980px){ .ppath{ grid-template-columns:repeat(3,1fr); gap:28px 12px; } .ppath .ps:nth-child(3)::after{ display:none; } }
   @media (max-width:560px){ .ppath{ grid-template-columns:1fr 1fr; } .ppath .ps::after{ display:none; } }
@@ -285,7 +285,8 @@
   .cohort-callout{ display:flex; gap:1rem; align-items:flex-start; background:var(--cream); border:1px solid var(--line); border-left:5px solid var(--red); border-radius:var(--r-md); padding:1.2rem 1.4rem; margin:0 auto clamp(30px,4vw,44px); max-width:920px; box-shadow:var(--shadow-sm); font-size:.97rem; color:var(--ink-soft); }
   .cohort-callout svg{ width:26px; height:26px; color:var(--red); flex:0 0 auto; margin-top:2px; }
   .cohort-callout strong{ color:var(--ink); }
-  .forms-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,3.5vw,44px); align-items:start; }
+  .forms-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,3.5vw,44px); align-items:stretch; }
+  .forms-grid .form-card{ height:100%; display:flex; flex-direction:column; }
   .form-card{ background:var(--cream); border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(26px,3.2vw,40px); box-shadow:var(--shadow-sm); }
   .form-card.accent{ background:linear-gradient(155deg,var(--red) 0%, var(--red-dark) 100%); color:#fff; border-color:var(--red); }
   .form-card.accent h3,.form-card.accent .eyebrow{ color:#fff; }
@@ -357,25 +358,33 @@
   .form-card.accent .gform_wrapper .gform_footer input[type=submit]:hover{ background:var(--red-soft) !important; color:var(--red-dark) !important; border-color:var(--red-soft) !important; }
   .form-card.accent .gform_wrapper .validation_message{ color:#fff !important; }
 
-  /* force EVERY control + its container to full, uniform width & height */
-  .form-card .gform_wrapper .gfield,
-  .form-card .gform_wrapper .ginput_container,
-  .form-card .gform_wrapper .ginput_complex,
-  .form-card .cfa-input-wrapper{ width:100% !important; max-width:100% !important; }
-  .form-card .gform_wrapper input:not([type=submit]):not([type=button]):not([type=checkbox]):not([type=radio]),
-  .form-card .gform_wrapper textarea,
-  .form-card .gform_wrapper select,
-  .form-card .cfa-autocomplete{ width:100% !important; max-width:100% !important; min-height:50px !important; box-sizing:border-box !important; }
-  .form-card .gform_wrapper textarea{ min-height:120px !important; }
-  .form-card .gform_wrapper .ginput_complex > span{ width:100% !important; display:block; }
-
-  /* --- Pilot-card polish: comfortable spacing + visible address label + nicer suggestions --- */
+  /* ============================================================
+     BULLETPROOF full-width, uniform fields. Handles BOTH GF markups:
+     orbital/grid (.gform_fields is a grid) AND legacy (ul > li.gfield floated).
+     Overrides GF "field size" (small/medium) and partial column widths.
+     ============================================================ */
   .form-card .gform_wrapper .gform_fields{ display:grid !important; grid-template-columns:1fr !important; grid-row-gap:20px !important; row-gap:20px !important; }
-  .form-card .gform_wrapper .gfield{ margin:0 !important; padding:0 !important; width:100% !important; }
+  .form-card .gform_wrapper .gform_fields > .gfield,
+  .form-card .gform_wrapper li.gfield,
+  .form-card .gform_wrapper .gfield{ grid-column:1 / -1 !important; width:100% !important; max-width:100% !important; float:none !important; clear:both !important; margin:0 !important; padding:0 !important; list-style:none !important; }
+  .form-card .gform_wrapper .ginput_container{ width:100% !important; max-width:100% !important; float:none !important; margin-top:0 !important; }
+  /* first/last name (advanced Name) => two equal columns in every GF markup */
+  .form-card .gform_wrapper .ginput_complex{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:14px !important; width:100% !important; max-width:100% !important; float:none !important; }
+  .form-card .gform_wrapper .ginput_complex > span,
+  .form-card .gform_wrapper .ginput_complex > .ginput_left,
+  .form-card .gform_wrapper .ginput_complex > .ginput_right{ width:100% !important; max-width:100% !important; min-width:0 !important; float:none !important; margin:0 !important; padding:0 !important; }
+  /* the actual controls */
+  .form-card .gform_wrapper input:not([type=submit]):not([type=button]):not([type=checkbox]):not([type=radio]),
+  .form-card .gform_wrapper select,
+  .form-card .gform_wrapper textarea,
+  .form-card .cfa-autocomplete{ width:100% !important; max-width:100% !important; min-width:0 !important; min-height:52px !important; box-sizing:border-box !important; }
+  .form-card .gform_wrapper textarea{ min-height:120px !important; }
+  .form-card .cfa-input-wrapper{ width:100% !important; max-width:100% !important; margin:0 !important; }
+
+  /* --- Pilot-card polish: spacing + visible address label + nicer suggestions --- */
   .form-card .gform_wrapper .gsection,.form-card .gform_wrapper .gfield--type-section{ margin:.3rem 0 !important; padding:0 !important; border:0 !important; min-height:0 !important; }
   .form-card .gform_wrapper .gsection .gsection_title{ display:none !important; }
   .form-card .gform_wrapper .ginput_complex label,.form-card .gform_wrapper .gfield_label{ margin-bottom:.45rem !important; }
-  .form-card .gform_wrapper .ginput_complex{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:14px !important; }
   .form-card .gform_wrapper .ginput_container{ margin-top:0 !important; }
   .form-card .cfa-input-wrapper{ margin:0 !important; width:100% !important; }
   .form-card .cfa-input-wrapper .cfa-autocomplete{ width:100% !important; }
