@@ -433,9 +433,12 @@
   .cfa-mobile .m-actions{ display:flex; gap:.8rem; margin-top:1.2rem; } .cfa-mobile .m-actions .btn{ flex:1; }
 
   @media (max-width:960px){
-    .hero-grid{ grid-template-columns:1fr; } .hero-art{ max-width:520px; margin:.5rem auto 0; }
+    .hero-grid{ grid-template-columns:1fr; } .hero-art{ max-width:520px; margin:1.5rem auto 0; }
     .cards{ grid-template-columns:1fr; } .stats{ grid-template-columns:1fr 1fr; }
     .cfa-navlinks,.cfa-actions{ display:none; } .cfa-burger{ display:block; }
+    /* stop the hero image's floating chip/decorations from overlapping the copy */
+    .hero-art .dots, .hero-art .blob{ display:none; }
+    .hero-art .chip{ position:static; margin:.9rem auto 0; width:max-content; max-width:100%; }
   }
   @media (max-width:560px){ .two-col{ grid-template-columns:1fr; } .stats{ grid-template-columns:1fr; } .hero-cta .btn{ width:100%; } .btn{ white-space:normal; } }
 </style>
