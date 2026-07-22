@@ -94,7 +94,7 @@ matching your exact field formats — e.g. simple vs. advanced Name).
 **This requires Route B (the PHP template)** — a static Code module can't run
 shortcodes. `page-lean365.php` renders:
 ```php
-<?php echo do_shortcode('[gravityform id="36" title="false" description="false" ajax="true"]'); ?>
+<?php echo do_shortcode('[gravityform id="38" title="false" description="false" ajax="true"]'); ?>
 <?php echo do_shortcode('[gravityform id="37" title="false" description="false" ajax="true"]'); ?>
 ```
 
@@ -152,7 +152,7 @@ steps) was **deliberately left off** the public page.
   slide/graphic that looks cropped, tell me and I'll switch its fit or swap it.
 - **Video** — your live Vimeo embed (`video/1161914882`).
 - **Login** — `https://cfalean365.com/wp-login.php`.
-- **Form field IDs** — mapped in `gf-proxy.php`: Interest (36) Name `3`, Email `4`,
+- **Form field IDs** — mapped in `gf-proxy.php`: Interest (38) Name `3`, Email `4`,
   Phone `23`, Message `32`; Support (37) Name `1`, Email `2`, Subject `4`, Message `3`.
 
 **Chick-fil-A store-address autocomplete — wired, no keys in the page:**

@@ -9,7 +9,7 @@
  * It exposes:  POST /wp-json/cfa/v1/submit
  * The homepage posts JSON here; this runs GravityForms server-side via GFAPI
  * (full validation, notifications, confirmations). The Chick-fil-A store-address
- * field (form 36, field 34) is resolved from the Google place_id by REUSING your
+ * field (form 38, field 34) is resolved from the Google place_id by REUSING your
  * existing snippet's cfa_fetch_place_details() — so no Google key is needed here.
  *
  * In index.html / page-lean365.php set:
@@ -31,7 +31,7 @@ function cfa_rest_submit( WP_REST_Request $request ) {
 
     // Field maps: friendly name (from the HTML "name") => GravityForms field ID.
     $maps = [
-        '36' => [ // CFA Pilot Interest Form
+        '38' => [ // CFA Pilot Interest Form
             'first_name' => '3.3',
             'last_name'  => '3.6',
             'email'      => '4',
@@ -83,9 +83,9 @@ function cfa_rest_submit( WP_REST_Request $request ) {
         }
     }
 
-    // Chick-fil-A store address (form 36, field 34): resolve the Google place_id
+    // Chick-fil-A store address (form 38, field 34): resolve the Google place_id
     // into the Address sub-inputs, reusing your autocomplete snippet's function.
-    if ( $formId === '36' ) {
+    if ( $formId === '38' ) {
         $placeId = isset( $fields['store_place_id'] ) ? trim( (string) $fields['store_place_id'] ) : '';
         if ( $placeId !== '' ) {
             $_POST['input_34_place_id'] = $placeId; // satisfies the snippet's validation if it runs

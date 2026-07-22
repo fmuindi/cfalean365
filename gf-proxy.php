@@ -25,7 +25,7 @@
  * REQUIRED SETUP — see the two CONFIG blocks below:
  *   1. FIELD MAPS: map each friendly field name to its GravityForms field ID.
  *      Find IDs in the GF form editor (click a field → "Field ID" shown on the
- *      right), or GET /wp-json/gf/v2/forms/36 and /37.
+ *      right), or GET /wp-json/gf/v2/forms/38 and /37.
  *   2. ALLOWED_ORIGINS: your site domain(s), to block cross-site abuse.
  * ============================================================================
  */
@@ -41,12 +41,12 @@ const ALLOWED_ORIGINS = [
 ];
 
 // 2) Field maps: friendly name (from the HTML "name" attribute)  =>  GF field ID.
-//    ⚠️ VERIFY THESE IDs against your real forms 36 & 37 before going live.
+//    ⚠️ VERIFY THESE IDs against your real forms 38 & 37 before going live.
 //    For a GF "Name" advanced field the sub-inputs are like "1.3" (first),
 //    "1.6" (last). A simple single-line field is just "1", "2", etc.
 $FIELD_MAPS = [
-    // CFA Pilot Interest Form — form 36 (IDs confirmed from GF editor)
-    '36' => [
+    // CFA Pilot Interest Form — form 38 (IDs confirmed from GF editor)
+    '38' => [
         'first_name' => '3.3',   // Name (ID 3) → First
         'last_name'  => '3.6',   // Name (ID 3) → Last
         'email'      => '4',     // Email (ID 4)
@@ -148,9 +148,9 @@ foreach ($map as $friendly => $gfId) {
     }
     $inputs['input_' . str_replace('.', '_', (string) $gfId)] = $val;
 }
-// Store address (form 36, field 34) for the REST fallback: pass the place_id
+// Store address (form 38, field 34) for the REST fallback: pass the place_id
 // (the site's snippet resolves it on submit) and the typed text as the street line.
-if ($formId === '36') {
+if ($formId === '38') {
     if (!empty($fields['store_place_id'])) $inputs['input_34_place_id'] = trim((string) $fields['store_place_id']);
     if (!empty($fields['store_address']))  $inputs['input_34_1']       = trim((string) $fields['store_address']);
 }
@@ -181,10 +181,10 @@ if ($wpLoad !== null) {
             }
         }
 
-        // Chick-fil-A Store Address (form 36, field 34). The custom autocomplete
+        // Chick-fil-A Store Address (form 38, field 34). The custom autocomplete
         // sets a Google place_id; resolve it into the GF Address sub-inputs by
         // reusing the site's own snippet function — no extra API key needed here.
-        if ($formId === '36') {
+        if ($formId === '38') {
             $placeId = isset($fields['store_place_id']) ? trim((string) $fields['store_place_id']) : '';
             if ($placeId !== '') {
                 // Satisfy the snippet's gform_validation if it runs during submit.

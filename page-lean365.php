@@ -666,8 +666,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
           <span class="eyebrow">Pilot interest</span>
           <h3>Express Interest in the Pilot</h3>
           <p class="sub">Tell us about your restaurant and we'll be in touch about current and future cohorts.</p>
-          <!-- GF-EMBED 36 · page-lean365.php replaces this with the real form via do_shortcode -->
-          <div class="gf-embed" data-gf="36"><?php echo do_shortcode('[gravityform id="36" title="false" description="false" ajax="true"]'); ?></div>
+          <!-- GF-EMBED 38 · page-lean365.php replaces this with the real form via do_shortcode -->
+          <div class="gf-embed" data-gf="38"><?php echo do_shortcode('[gravityform id="38" title="false" description="false" ajax="true"]'); ?></div>
         </div>
         <!-- Support Contact Form — GravityForms id 37 -->
         <div class="form-card reveal" id="support">
